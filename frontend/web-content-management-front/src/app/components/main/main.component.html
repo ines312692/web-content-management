@@ -1,0 +1,15 @@
+
+<div class="container-fluid d-flex flex-wrap">
+  <div class="column">
+    <app-origin-list (dragStart)="onDragStart()" (dragMove)="onDragged($event)" (dragEnd)="onDragEnd()"></app-origin-list>
+  </div>
+  <div class="column">
+    <app-layout [root]="root" (drop)="onDrop($event)" (dragStart)="onDragStart()"
+                (dragMove)="onDragged($event)" (dragEnd)="onDragEnd()"
+                (remove)="onRemove($event)" (nodeSelected)="onNodeSelected($event)"></app-layout>
+  </div>
+  <div class="column">
+    <app-options [root]="root" [selectedNode$]="selectedNode$" [selectedNodeIsRoot]="isLastSelectedNodeRoot"
+                 [layout$]="layout$" (saveNode)="onNodeSave($event)" (saveLayout)="onSaveLayout($event)"></app-options>
+  </div>
+</div>

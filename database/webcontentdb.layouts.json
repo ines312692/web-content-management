@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "67e90c5e94198a2165d8eeb2"
+  },
+  "borderColor": "",
+  "backgroundColor": "",
+  "height": "",
+  "width": "",
+  "name": "Default Layout",
+  "code": "someCode",
+  "description": "",
+  "type": "SECTION",
+  "status": "ACTIVE",
+  "nodes": [
+    {
+      "$ref": "nodes",
+      "$id": "yjs941k3k"
+    },
+    {
+      "$ref": "nodes",
+      "$id": "0pjwnjopj"
+    }
+  ],
+  "_class": "com.example.web_content_management_back.model.Layout"
+},
+{
+  "_id": {
+    "$oid": "67ec1d02649d342fd39b5b8a"
+  },
+  "borderColor": "#000000",
+  "backgroundColor": "#FFFFFF",
+  "height": "auto",
+  "width": "auto",
+  "name": "Image",
+  "description": "Description for Image",
+  "type": "image",
+  "nodes": [],
+  "_class": "com.example.web_content_management_back.model.Layout"
+}]

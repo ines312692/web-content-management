@@ -1,0 +1,24 @@
+.element {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.element:hover {
+  background-color: #f3f4f6;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+}

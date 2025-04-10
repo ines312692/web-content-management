@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/websites")
+@RequestMapping("/websites")
 public class WebsiteController {
+
     @Autowired
     private WebsiteService websiteService;
 

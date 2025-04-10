@@ -1,0 +1,23 @@
+.large-height {
+  height: 100px;
+  text-align: center;
+}
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+.card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-body {
+  display: flex;
+  align-items: center;
+}
+
+.me-2 {
+  margin-right: 0.5rem;
+}

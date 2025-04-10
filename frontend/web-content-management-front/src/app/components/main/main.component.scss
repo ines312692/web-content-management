@@ -1,0 +1,25 @@
+.top-margin {
+  margin-top: 80px;
+}
+
+.column {
+  flex: 0.5;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+}
+
+.column:nth-child(3) {
+  flex: 1.5;
+}
+
+.column:nth-child(2) {
+  flex: 4;
+  background-color: white;
+}
+
+@media only screen and (max-width: 750px) {
+  .d-flex {
+    flex-direction: column;
+  }
+}

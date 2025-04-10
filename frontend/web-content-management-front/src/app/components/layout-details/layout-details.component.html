@@ -1,0 +1,62 @@
+<form class="mt-2" [formGroup]="form" *ngIf="layout$ | async as layout" (ngSubmit)="onSave()">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Enter Name" class="form-control" formControlName="name">
+    <small class="text-danger" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+      Name is required.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="code">Code</label>
+    <input type="text" id="code" placeholder="Enter Code" class="form-control" formControlName="code">
+    <small class="text-danger" *ngIf="form.get('code')?.invalid && form.get('code')?.touched">
+      Code is required.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input type="text" id="description" placeholder="Enter Description" class="form-control" formControlName="description">
+  </div>
+
+  <div class="form-group">
+    <label for="type">Type</label>
+    <select class="form-select" id="type" formControlName="type">
+      <option value="SECTION">SECTION</option>
+      <option value="ROUTABLE">ROUTABLE</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="status">Status</label>
+    <select class="form-select" id="status" formControlName="status">
+      <option value="ACTIVE">ACTIVE</option>
+      <option value="INACTIVE">INACTIVE</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="width">Width</label>
+    <input type="text" id="width" placeholder="Enter Width" class="form-control" formControlName="width">
+  </div>
+
+  <div class="form-group">
+    <label for="height">Height</label>
+    <input type="text" id="height" placeholder="Enter Height" class="form-control" formControlName="height">
+  </div>
+
+  <div class="form-group">
+    <label for="backgroundColor">Background Color</label>
+    <input type="color" id="backgroundColor" class="form-control" formControlName="backgroundColor">
+  </div>
+
+  <div class="form-group">
+    <label for="borderColor">Border Color</label>
+    <input type="color" id="borderColor" class="form-control" formControlName="borderColor">
+  </div>
+
+  <div class="d-flex p-2 justify-content-center">
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Save</button>
+  </div>
+</form>

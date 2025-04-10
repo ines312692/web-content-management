@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  box-sizing: border-box;
+}
+
+.dndDraggingSource {
+  opacity: 0.5;
+  transform: scale(0.98);
+}
+
+.dndPlaceholder {
+  background: #fff;
+  min-height: 46px;
+  min-width: 46px;
+}
+
+[dnddropzone] {
+  background: #fafafa;
+  min-height: 60px;
+  display: flex;
+  outline: 2px solid rgba(0, 0, 0, 0.04);
+}
+
+.layout-root { cursor: pointer; }
+
+.selected-node { border: 1px solid blue; }
