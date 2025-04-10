@@ -1,0 +1,17 @@
+<div class="card site-card">
+    <div class="site-preview">
+      <fa-icon [icon]="website.type === 'laptop' ? faLaptop : faStore"></fa-icon>
+    </div>
+    <div class="site-info">
+      <h3 class="site-title">{{ website.title }}</h3>
+      <div class="site-url">{{ website.url }}</div>
+      <div class="site-actions">
+        <button class="btn btn-outline">
+          <fa-icon [icon]="faEye"></fa-icon> View
+        </button>
+        <button class="btn btn-primary">
+          <fa-icon [icon]="faEdit"></fa-icon> Edit
+        </button>
+      </div>
+    </div>
+  </div>

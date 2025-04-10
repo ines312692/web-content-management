@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebBuilder Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #0056b3;
+      --dark-bg: #1a1a1a;
+      --light-bg: #f8f9fa;
+      --text-dark: #333;
+      --text-light: #f0f0f0;
+      --border-color: #ddd;
+      --hover-color: #e9ecef;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f5f5f5;
+      color: var(--text-dark);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: var(--dark-bg);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .sidebar-menu {
+      padding: 20px 0;
+      flex-grow: 1;
+    }
+
+    .menu-item {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .menu-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-item.active {
+      background: var(--primary-color);
+      border-left: 4px solid white;
+    }
+
+    .menu-item i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .user-info {
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+
+    .user-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .user-role {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-title h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .dashboard-actions button {
+      padding: 10px 20px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .dashboard-actions button:hover {
+      background: var(--secondary-color);
+    }
+
+    .dashboard-actions button i {
+      margin-right: 8px;
+    }
+
+    /* Cards */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    /* Profile Card */
+    .profile-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      font-size: 2rem;
+      color: #777;
+    }
+
+    .profile-details h3 {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .profile-details p {
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--secondary-color);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+    }
+
+    .btn-outline:hover {
+      background: var(--hover-color);
+    }
+
+    /* Website/Database Cards */
+    .site-card, .db-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .site-preview {
+      height: 160px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+      font-size: 3rem;
+    }
+
+    .site-info, .db-info {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .site-title, .db-title {
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .site-url, .db-status {
+      color: #777;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+    }
+
+    .site-actions, .db-actions {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .add-new-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+      border: 2px dashed #ccc;
+      cursor: pointer;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    .add-new-card:hover {
+      border-color: var(--primary-color);
+      background: var(--hover-color);
+    }
+
+    .add-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+
+    .add-text {
+      font-weight: 500;
+    }
+
+    /* Section Title */
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Modal Styles */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 10px;
+      width: 500px;
+      max-width: 90%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #777;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .modal-footer {
+      padding: 15px 20px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>WebBuilder</h2>
+    </div>
+    <div class="sidebar-menu">
+      <div class="menu-item active">
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-globe"></i>
+        <span>My Websites</span>
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-database"></i>
+        <span>My Databases</span>
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-folder"></i>
+        <span>Components</span>
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </div>
+    </div>
+    <div class="user-info">
+      <div class="user-avatar">
+        <i class="fas fa-user"></i>
+      </div>
+      <div>
+        <div class="user-name">John Doe</div>
+        <div class="user-role">User</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <h1>Dashboard</h1>
+      </div>
+      <div class="dashboard-actions">
+        <button id="create-site-btn">
+          <i class="fas fa-plus"></i> Create New Website
+        </button>
+      </div>
+    </div>
+
+    <!-- Profile Section -->
+    <h2 class="section-title">My Profile</h2>
+    <div class="card">
+      <div class="card-content">
+        <div class="profile-info">
+          <div class="profile-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="profile-details">
+            <h3>John Doe</h3>
+            <p>john.doe@example.com</p>
+            <p>Member since: Jan 2024</p>
+          </div>
+        </div>
+        <div class="profile-actions">
+          <button class="btn btn-primary" id="edit-profile-btn">Edit Profile</button>
+          <button class="btn btn-outline">Change Password</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Websites Section -->
+    <h2 class="section-title">My Websites</h2>
+    <div class="card-container">
+      <!-- Website Card 1 -->
+      <div class="card site-card">
+        <div class="site-preview">
+          <i class="fas fa-laptop"></i>
+        </div>
+        <div class="site-info">
+          <h3 class="site-title">Personal Blog</h3>
+          <div class="site-url">blog.example.com</div>
+          <div class="site-actions">
+            <button class="btn btn-outline">
+              <i class="fas fa-eye"></i> View
+            </button>
+            <button class="btn btn-primary">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Website Card 2 -->
+      <div class="card site-card">
+        <div class="site-preview">
+          <i class="fas fa-store"></i>
+        </div>
+        <div class="site-info">
+          <h3 class="site-title">Online Shop</h3>
+          <div class="site-url">shop.example.com</div>
+          <div class="site-actions">
+            <button class="btn btn-outline">
+              <i class="fas fa-eye"></i> View
+            </button>
+            <button class="btn btn-primary">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add New Website Card -->
+      <div class="add-new-card" id="add-site-card">
+        <div class="add-icon">
+          <i class="fas fa-plus-circle"></i>
+        </div>
+        <div class="add-text">Add New Website</div>
+      </div>
+    </div>
+
+    <!-- Databases Section -->
+    <h2 class="section-title">My Databases</h2>
+    <div class="card-container">
+      <!-- Database Card 1 -->
+      <div class="card db-card">
+        <div class="card-header">
+          <div class="card-title">Blog Database</div>
+        </div>
+        <div class="db-info">
+          <div class="db-status">
+            <i class="fas fa-circle" style="color: green;"></i> Connected
+          </div>
+          <div class="db-actions">
+            <button class="btn btn-outline">
+              <i class="fas fa-table"></i> Manage
+            </button>
+            <button class="btn btn-primary">
+              <i class="fas fa-edit"></i> Configure
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Database Card 2 -->
+      <div class="card db-card">
+        <div class="card-header">
+          <div class="card-title">Products Database</div>
+        </div>
+        <div class="db-info">
+          <div class="db-status">
+            <i class="fas fa-circle" style="color: green;"></i> Connected
+          </div>
+          <div class="db-actions">
+            <button class="btn btn-outline">
+              <i class="fas fa-table"></i> Manage
+            </button>
+            <button class="btn btn-primary">
+              <i class="fas fa-edit"></i> Configure
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add New Database Card -->
+      <div class="add-new-card" id="add-db-card">
+        <div class="add-icon">
+          <i class="fas fa-plus-circle"></i>
+        </div>
+        <div class="add-text">Add New Database</div>
+      </div>
+    </div>
+
+    <!-- Create Website Modal -->
+    <div class="modal-backdrop" id="create-site-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Create New Website</h3>
+          <button class="close-modal" id="close-site-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="create-site-form">
+            <div class="form-group">
+              <label for="site-name">Website Name</label>
+              <input type="text" id="site-name" placeholder="Enter website name" required>
+            </div>
+            <div class="form-group">
+              <label for="site-url">URL</label>
+              <input type="text" id="site-url" placeholder="yoursite.example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="site-template">Template</label>
+              <select id="site-template">
+                <option value="blank">Blank</option>
+                <option value="blog">Blog</option>
+                <option value="portfolio">Portfolio</option>
+                <option value="ecommerce">E-Commerce</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline" id="cancel-site-create">Cancel</button>
+          <button class="btn btn-primary" id="confirm-site-create">Create Website</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal-backdrop" id="edit-profile-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Edit Profile</h3>
+          <button class="close-modal" id="close-profile-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="edit-profile-form">
+            <div class="form-group">
+              <label for="profile-name">Full Name</label>
+              <input type="text" id="profile-name" value="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="profile-email">Email</label>
+              <input type="email" id="profile-email" value="john.doe@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="profile-photo">Profile Photo</label>
+              <input type="file" id="profile-photo">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline" id="cancel-profile-edit">Cancel</button>
+          <button class="btn btn-primary" id="save-profile">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal functionality
+    document.getElementById('create-site-btn').addEventListener('click', function() {
+      document.getElementById('create-site-modal').style.display = 'flex';
+    });
+
+    document.getElementById('add-site-card').addEventListener('click', function() {
+      document.getElementById('create-site-modal').style.display = 'flex';
+    });
+
+    document.getElementById('close-site-modal').addEventListener('click', function() {
+      document.getElementById('create-site-modal').style.display = 'none';
+    });
+
+    document.getElementById('cancel-site-create').addEventListener('click', function() {
+      document.getElementById('create-site-modal').style.display = 'none';
+    });
+
+    document.getElementById('edit-profile-btn').addEventListener('click', function() {
+      document.getElementById('edit-profile-modal').style.display = 'flex';
+    });
+
+    document.getElementById('close-profile-modal').addEventListener('click', function() {
+      document.getElementById('edit-profile-modal').style.display = 'none';
+    });
+
+    document.getElementById('cancel-profile-edit').addEventListener('click', function() {
+      document.getElementById('edit-profile-modal').style.display = 'none';
+    });
+
+    // Menu highlighting
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+      item.addEventListener('click', function() {
+        menuItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Form submissions
+    document.getElementById('confirm-site-create').addEventListener('click', function() {
+      alert('Website created successfully!');
+      document.getElementById('create-site-modal').style.display = 'none';
+    });
+
+    document.getElementById('save-profile').addEventListener('click', function() {
+      alert('Profile updated successfully!');
+      document.getElementById('edit-profile-modal').style.display = 'none';
+    });
+
+    document.getElementById('add-db-card').addEventListener('click', function() {
+      alert('Database creation form will open here');
+    });
+  </script>
+</body>
+</html>

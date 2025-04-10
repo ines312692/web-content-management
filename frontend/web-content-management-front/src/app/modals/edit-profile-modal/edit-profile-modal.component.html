@@ -1,0 +1,30 @@
+<div class="modal-backdrop" [style.display]="isVisible ? 'flex' : 'none'">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Profile</h3>
+        <button class="close-modal" (click)="onClose()">
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-profile-form">
+          <div class="form-group">
+            <label for="profile-name">Full Name</label>
+            <input type="text" id="profile-name" [(ngModel)]="profile.name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="profile-email">Email</label>
+            <input type="email" id="profile-email" [(ngModel)]="profile.email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="profile-photo">Profile Photo</label>
+            <input type="file" id="profile-photo">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" (click)="onClose()">Cancel</button>
+        <button class="btn btn-primary" (click)="onSave()">Save Changes</button>
+      </div>
+    </div>
+  </div>

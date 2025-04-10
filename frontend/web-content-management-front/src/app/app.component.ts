@@ -1,18 +1,15 @@
+// src/app/app.component.ts
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {HeaderComponent} from './header/header.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @Component({
   selector: 'app-root',
-
-  templateUrl: './app.component.html',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    HeaderComponent
-  ],
-  styleUrl: './app.component.scss'
+  imports: [RouterOutlet, DashboardComponent],
+  template: `<app-dashboard></app-dashboard>`,
+  styles: []
 })
 export class AppComponent {
-  title = 'web-content-management-front';
+  title = 'webbuilder-dashboard';
 }

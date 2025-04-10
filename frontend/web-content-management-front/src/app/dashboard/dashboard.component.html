@@ -1,0 +1,40 @@
+<div class="dashboard-container">
+    <app-sidebar></app-sidebar>
+    
+    <div class="main-content">
+      <div class="dashboard-header">
+        <div class="dashboard-title">
+          <h1>Dashboard</h1>
+        </div>
+        <div class="dashboard-actions">
+          <button (click)="openCreateWebsiteModal()" class="action-button">
+            <fa-icon [icon]="faPlus"></fa-icon> Create New Website
+          </button>
+        </div>
+      </div>
+
+      <app-profile-section class="app-profile-container" (editProfile)="openEditProfileModal()"></app-profile-section>
+
+      <h2 class="section-title">My Websites</h2>
+      <div class="card-container">
+        <app-website-card *ngFor="let website of websites$ | async" [website]="website"></app-website-card>
+        <app-add-new-card text="Add New Website" (add)="openCreateWebsiteModal()"></app-add-new-card>
+      </div>
+
+      <h2 class="section-title">My Databases</h2>
+      <div class="card-container">
+        <app-database-card *ngFor="let database of databases$ | async" [database]="database"></app-database-card>
+        <app-add-new-card text="Add New Database" (add)="addNewDatabase()"></app-add-new-card>
+      </div>
+    </div>
+  </div>
+
+  <app-create-website-modal #createWebsiteModal
+    (close)="onCreateWebsiteModalClose()"
+    (create)="onWebsiteCreate($event)">
+  </app-create-website-modal>
+
+  <app-edit-profile-modal #editProfileModal
+    (close)="onEditProfileModalClose()"
+    (save)="onProfileSave($event)">
+  </app-edit-profile-modal>
