@@ -3,25 +3,14 @@ import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { provideRouter, Routes, withDebugTracing, withRouterConfig } from '@angular/router';
-import {WebsiteSetupComponentComponent} from './app/components/website-setup-component/website-setup-component.component';
-import {HomeComponent} from './app/components/home/home.component';
-import {MainComponent} from './app/components/main/main.component';
-
-
-const appRoutes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path:'website-setup', component: WebsiteSetupComponentComponent},
-  {path:'home',component:HomeComponent},
-  {path:'main',component:MainComponent},
-  { path: 'main/:id', component: MainComponent }
-];
+import { provideRouter, withDebugTracing, withRouterConfig } from '@angular/router';
+import { routes } from './app/app.routes';  // Import your routes from app.routes.ts
 
 bootstrapApplication(AppComponent, {
   ...appConfig,
   providers: [
     importProvidersFrom(HttpClientModule),
-    provideRouter(appRoutes, withDebugTracing(), withRouterConfig({ paramsInheritanceStrategy: 'always' }))
+    provideRouter(routes, withDebugTracing(), withRouterConfig({ paramsInheritanceStrategy: 'always' }))
   ]
 })
-  .catch((err) => console.error());
+  .catch((err) => console.error(err));
