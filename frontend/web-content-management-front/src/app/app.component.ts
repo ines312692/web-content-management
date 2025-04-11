@@ -11,7 +11,7 @@ import { HeaderComponent } from './shared/header/header.component';
     HeaderComponent,
     DashboardComponent
   ],
-  template: `<app-header></app-header><app-dashboard></app-dashboard>`,
+  template: `<app-dashboard></app-dashboard>`,
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
