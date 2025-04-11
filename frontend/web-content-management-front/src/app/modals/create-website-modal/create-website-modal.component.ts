@@ -40,8 +40,7 @@ export class CreateWebsiteModalComponent {
   onCreate() {
     this.create.emit(this.website);
     this.hide();
-    
-    // Reset form
+
     this.website = {
       name: '',
       url: '',
