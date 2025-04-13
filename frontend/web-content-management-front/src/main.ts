@@ -10,6 +10,7 @@ import {MainComponent} from './app/components/main/main.component';
 import {WebsiteSetupComponent} from './app/components/website-setup/website-setup.component';
 import {PagesListComponent} from './app/components/page-list/page-list.component';
 import {DashboardComponent} from './app/components/dashboard/dashboard.component';
+import { routes } from './app/app.routes';
 
 
 const appRoutes: Routes = [
