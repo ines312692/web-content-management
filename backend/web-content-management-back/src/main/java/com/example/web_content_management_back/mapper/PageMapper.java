@@ -16,6 +16,9 @@ public class PageMapper {
     }
 
     public Page toEntity(PageDTO pageDTO) {
+    if (pageDTO == null) {
+            return null;
+        }
         Page page = new Page();
         page.setId(pageDTO.getId());
         page.setName(pageDTO.getName());

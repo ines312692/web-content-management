@@ -1,0 +1,81 @@
+<div class="background-overlay"></div>
+<div class="login-container">
+  <div class="login-form">
+    <h1>Welcome Back</h1>
+    <p>Please log in to your account</p>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          required
+        >
+        <div
+          *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+          class="error-message"
+        >
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">
+            Email is required
+          </span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">
+            Please enter a valid email
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          required
+        >
+        <div
+          *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          class="error-message"
+        >
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">
+            Password is required
+          </span>
+        </div>
+      </div>
+
+      <div *ngIf="loginError" class="error-alert">
+        {{ loginError }}
+      </div>
+
+      <button
+        type="submit"
+        class="login-button"
+        [disabled]="loginForm.invalid || isLoading"
+      >
+        {{ isLoading ? 'Logging in...' : 'Log In' }}
+      </button>
+
+      <div class="divider">OR</div>
+
+      <button
+        type="button"
+        class="google-btn"
+        (click)="handleGoogleSignIn()"
+        [disabled]="isLoading"
+      >
+        <img ngSrc="assets/images/google-logo.png" alt="Google" height="768" width="768">
+        Continue with Google
+      </button>
+    </form>
+
+    <div class="forgot-password">
+      <a routerLink="/forgot-password">Forgot Password?</a>
+    </div>
+  </div>
+
+  <div class="login-image">
+    <img ngSrc="assets/images/logo-bg.png" alt="Company" height="540" width="410">
+  </div>
+</div>

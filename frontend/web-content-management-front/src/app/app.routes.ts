@@ -1,17 +1,17 @@
 // src/app/app.routes.ts
 import { Routes } from '@angular/router';
-import {WebsiteSetupComponentComponent} from './components/website-setup-component/website-setup-component.component';
 import {HomeComponent} from './components/home/home.component';
 import {MainComponent} from './components/main/main.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
+import {WebsiteSetupComponent} from './components/website-setup/website-setup.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path:'website-setup', component: WebsiteSetupComponentComponent},
+  {path:'website-setup', component: WebsiteSetupComponent},
   {path:'home',component:HomeComponent},
   {path:'main',component:MainComponent},
   { path: 'main/:id', component: MainComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'pages-list/:id', loadComponent: () => import('./components/page-list/page-list.component').then(m => m.PagesListComponent) },
+  { path: 'dashboard', component: DashboardComponent }
 ];

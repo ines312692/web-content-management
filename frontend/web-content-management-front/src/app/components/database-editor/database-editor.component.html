@@ -1,0 +1,7 @@
+<div>
+  <h2>Éditeur de base de données</h2>
+
+  <app-add-table (onAdd)="addTable($event)"></app-add-table>
+
+  <app-table-list  [tables]="tables" (onEdit)="editTable($event)" (onDelete)="deleteTable($event)"></app-table-list>
+</div>

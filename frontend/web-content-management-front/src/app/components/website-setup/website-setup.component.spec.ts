@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WebsiteSetupComponentComponent } from './website-setup-component.component';
+import { WebsiteSetupComponent } from './website-setup.component';
 
 describe('WebsiteSetupComponentComponent', () => {
-  let component: WebsiteSetupComponentComponent;
-  let fixture: ComponentFixture<WebsiteSetupComponentComponent>;
+  let component: WebsiteSetupComponent;
+  let fixture: ComponentFixture<WebsiteSetupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WebsiteSetupComponentComponent]
+      imports: [WebsiteSetupComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WebsiteSetupComponentComponent);
+    fixture = TestBed.createComponent(WebsiteSetupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

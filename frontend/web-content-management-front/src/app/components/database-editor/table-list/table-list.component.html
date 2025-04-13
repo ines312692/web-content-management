@@ -1,0 +1,12 @@
+<div *ngFor="let table of tables" class="table-item">
+  <ng-container *ngIf="table.id && table.name">
+    <h3 class="table-name">{{ table.name }}</h3>
+    <div class="table-actions">
+      <button (click)="editTable(table)">Modifier</button>
+      <button (click)="deleteTable(table.name)">Supprimer</button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!table.id || !table.name">
+    <h3 class="missing-info">Informations de la table manquantes</h3>
+  </ng-container>
+</div>

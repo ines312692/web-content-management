@@ -1,0 +1,56 @@
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h2>WebBuilder</h2>
+  </div>
+  <div class="sidebar-menu">
+    <button
+      class="menu-item"
+      [class.active]="activeMenuItem === 'dashboard'"
+      (click)="setActiveMenuItem('dashboard')"
+    >
+      <fa-icon [icon]="faHome"></fa-icon>
+      <span>Dashboard</span>
+    </button>
+    <button
+      class="menu-item"
+      [class.active]="activeMenuItem === 'websites'"
+      (click)="setActiveMenuItem('websites')"
+    >
+      <fa-icon [icon]="faGlobe"></fa-icon>
+      <span>My Websites</span>
+    </button>
+    <button
+      class="menu-item"
+      [class.active]="activeMenuItem === 'databases'"
+      (click)="setActiveMenuItem('databases')"
+    >
+      <fa-icon [icon]="faDatabase"></fa-icon>
+      <span>My Databases</span>
+    </button>
+    <button
+      class="menu-item"
+      [class.active]="activeMenuItem === 'components'"
+      (click)="setActiveMenuItem('components')"
+    >
+      <fa-icon [icon]="faFolder"></fa-icon>
+      <span>Components</span>
+    </button>
+    <button
+      class="menu-item"
+      [class.active]="activeMenuItem === 'settings'"
+      (click)="setActiveMenuItem('settings')"
+    >
+      <fa-icon [icon]="faCog"></fa-icon>
+      <span>Settings</span>
+    </button>
+  </div>
+  <div class="user-info">
+    <div class="user-avatar">
+      <fa-icon [icon]="faUser"></fa-icon>
+    </div>
+    <div>
+      <div class="user-name">Amine Rachdi</div>
+      <div class="user-role">User</div>
+    </div>
+  </div>
+</div>

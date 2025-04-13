@@ -1,0 +1,38 @@
+.profile-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  font-size: 2rem;
+  color: #777;
+}
+
+.profile-details h3 {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.profile-details p {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.card-content {
+  padding: 20px;
+}
+

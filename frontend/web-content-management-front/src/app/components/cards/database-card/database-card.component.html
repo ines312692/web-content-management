@@ -1,0 +1,19 @@
+<div class="card db-card">
+  <div class="card-header">
+    <div class="card-title">{{ database.name }}</div>
+  </div>
+  <div class="db-info">
+    <div class="db-status">
+      <fa-icon [icon]="faDatabase"></fa-icon>
+      <span class="status-text">Connected</span>
+    </div>
+    <div class="db-actions">
+      <button class="btn btn-outline">
+        <fa-icon [icon]="faTable"></fa-icon> Manage
+      </button>
+      <button class="btn btn-primary" (click)="configureDatabase()">
+        <fa-icon [icon]="faEdit"></fa-icon> Configure
+      </button>
+    </div>
+  </div>
+</div>

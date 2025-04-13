@@ -11,6 +11,9 @@ import java.util.Collections;
 public class LayoutMapper {
 
     public LayoutDTO toDTO(Layout layout) {
+    if (layout == null) {
+            return null;
+        }
         LayoutDTO layoutDTO = new LayoutDTO();
         layoutDTO.setId(layout.getId());
         layoutDTO.setBorderColor(layout.getBorderColor());
@@ -27,6 +30,10 @@ public class LayoutMapper {
     }
 
     public Layout toEntity(LayoutDTO layoutDTO) {
+
+        if (layoutDTO == null) {
+            return null;
+        }
         Layout layout = new Layout();
         layout.setId(layoutDTO.getId());
         layout.setBorderColor(layoutDTO.getBorderColor());

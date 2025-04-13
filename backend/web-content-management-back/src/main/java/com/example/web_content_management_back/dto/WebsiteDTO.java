@@ -12,4 +12,5 @@ public class WebsiteDTO {
     private String primaryColor;
     private String description;
     private List<PageDTO> pages;
+    private DatabaseDTO database;
 }

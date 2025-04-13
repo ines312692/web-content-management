@@ -1,0 +1,78 @@
+.sidebar {
+  width: 250px;
+  background: var(--dark-bg);
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  height: 100vh;
+  position: fixed;
+}
+
+.sidebar-header {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.sidebar-menu {
+  padding: 20px 0;
+  flex-grow: 1;
+}
+
+.menu-item {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.menu-item fa-icon {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item.active {
+  background: var(--primary-color);
+  border-left: 4px solid white;
+}
+
+.user-info {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.user-role {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}

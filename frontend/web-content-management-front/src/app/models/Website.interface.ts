@@ -8,4 +8,5 @@ export interface Website{
   primaryColor: string;
   description: string;
   pages: Page[];
+  database : null;
 }

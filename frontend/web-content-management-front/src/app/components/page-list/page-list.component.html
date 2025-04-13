@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <h2 class="h5 mb-3">Pages du site</h2>
+  <div class="p-3 border rounded">
+    <div *ngFor="let page of pages" >
+      <span *ngIf="page.name">{{ page.name }}</span>
+
+      <div>
+        <button class="btn btn-link text-primary p-0 me-2">Modifier</button>
+        <button (click)="deletePage(page)" class="btn btn-link text-danger p-0">Supprimer</button>
+      </div>
+    </div>
+  </div>
+  <button (click)="addPage()" class="btn btn-primary mt-3">Ajouter une page</button>
+</div>

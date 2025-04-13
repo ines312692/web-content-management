@@ -1,0 +1,33 @@
+<div class="custom-modal-header">
+  <h3 class="custom-modal-title">Modifier le site web</h3>
+  <button class="custom-close-modal" (click)="close()">
+    <fa-icon [icon]="faTimes"></fa-icon>
+  </button>
+</div>
+<div class="custom-modal-body">
+  <form [formGroup]="websiteForm" (ngSubmit)="saveChanges()">
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <input type="text" id="name" formControlName="name" placeholder="Nom du site web">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" placeholder="Entrez une description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="domain">Domaine</label>
+      <input type="text" id="domain" formControlName="domain" placeholder="example.com">
+    </div>
+
+    <div class="form-group">
+      <label for="primaryColor">Couleur principale</label>
+      <input type="color" id="primaryColor" formControlName="primaryColor">
+    </div>
+  </form>
+</div>
+<div class="custom-modal-footer">
+  <button type="button" class="btn btn-outline" (click)="close()">Annuler</button>
+  <button type="submit" class="btn btn-primary" (click)="saveChanges()">Enregistrer</button>
+</div>

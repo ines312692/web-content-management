@@ -1,0 +1,29 @@
+.add-new-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  border: 2px dashed #ccc;
+  cursor: pointer;
+  background: white;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+.add-new-card:hover {
+  border-color: var(--primary-color);
+  background: var(--hover-color);
+}
+
+.add-icon {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.add-text {
+  font-weight: 500;
+}

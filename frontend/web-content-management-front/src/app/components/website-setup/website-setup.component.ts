@@ -2,23 +2,25 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { WebsiteService } from '../../services/website-service.service';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {Router, RouterModule} from '@angular/router';
 
 @Component({
-  selector: 'app-website-setup-component',
+  selector: 'app-website-setup',
   imports: [
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    RouterModule
   ],
-  templateUrl: './website-setup-component.component.html',
+  templateUrl: './website-setup.component.html',
   standalone: true,
-  styleUrl: './website-setup-component.component.scss'
+  styleUrl: './website-setup.component.scss'
 })
-export class WebsiteSetupComponentComponent {
+export class WebsiteSetupComponent {
   setupForm: FormGroup;
 
   @Output() setupSubmitted = new EventEmitter<any>();
 
-  constructor(private readonly fb: FormBuilder, private readonly websiteService: WebsiteService,private readonly snackBar: MatSnackBar) {
+  constructor(private readonly fb: FormBuilder, private readonly websiteService: WebsiteService,private readonly snackBar: MatSnackBar,private readonly router: Router) {
     this.setupForm = this.fb.group({
       name: ['', Validators.required],
       domain: ['', Validators.required],
@@ -38,6 +40,11 @@ export class WebsiteSetupComponentComponent {
             panelClass: ['success-snackbar']
           });
           this.setupSubmitted.emit(response);
+          this.router.navigate(['/pages-list', response.id]).then(() => {
+            console.log('Navigation réussie');
+          }).catch(err => {
+            console.error('Erreur lors de la navigation :', err);
+          });
         },
         error: () => {
           this.snackBar.open('Erreur lors de la création du site web.', 'Fermer', {

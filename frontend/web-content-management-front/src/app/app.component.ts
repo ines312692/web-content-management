@@ -1,19 +1,18 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './shared/header/header.component';
+import {RouterOutlet} from '@angular/router';
+
+
+
 
 @Component({
   selector: 'app-root',
-  standalone: true,
+  templateUrl: './app.component.html',
+  styles: [''],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterOutlet,
-    HeaderComponent
   ],
-  template: `
-    <router-outlet></router-outlet>
-  `,
-  styles: [''],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  standalone: true
 })
 export class AppComponent {
   title = 'website-builder';

@@ -28,18 +28,18 @@ export class OptionsComponent implements OnInit {
   @Output() saveNode = new EventEmitter<{ oldNode: INode, newNode: INode, isRoot: boolean }>();
   @Output() saveLayout = new EventEmitter<ILayout>();
 
-  constructor(private nodeService: NodeService, private layoutService: LayoutService) {}
+  constructor(private readonly nodeService: NodeService, private readonly layoutService: LayoutService) {}
 
   ngOnInit(): void {
     if (this.layout$) {
       this.layout$.subscribe(layout => {
-        //console.log('Layout reçu dans OptionsComponent :', layout);
+
       });
     }
 
     if (this.selectedNode$) {
       this.selectedNode$.subscribe(node => {
-       // console.log('Node sélectionné reçu dans OptionsComponent :', node);
+
       });
     }
   }

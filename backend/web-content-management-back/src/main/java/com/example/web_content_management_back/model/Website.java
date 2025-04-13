@@ -20,5 +20,7 @@ public class Website {
     private String description;
 
     @DBRef
-    private List<Page> pages=new ArrayList<>();;
+    private List<Page> pages=new ArrayList<>();
+    @DBRef
+    private Database database;
 }
