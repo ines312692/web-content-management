@@ -1,17 +1,144 @@
-<h5 class="text-center">Elements</h5>
-<div class="d-flex flex-column gap-3.5 rounded-2 draggable">
-  <div *ngFor="let node of originList" class="card"
-       [dndDraggable]="node"
-       (dndCanceled)="onDragged($event, node, 'none')"
-       (dndCopied)="onDragged($event, node, 'copy')"
-       (dndEnd)="onDragEnd($event)"
-       (dndLinked)="onDragged($event, node, 'link')"
-       (dndMoved)="onDragged($event, node, 'move')"
-       (dndStart)="onDragStart($event)"
-       dndEffectAllowed="move">
-    <div class="card-body d-flex align-items-center">
-      <i [ngClass]="getIconClass(node.type)" class="me-2"></i>
-      <h6 class="card-title mb-0">{{ node.name }} <sup class="text-info"></sup></h6>
+<div class="left-sidebar">
+  <div class="sidebar-nav">
+    <div class="sidebar-nav-item"
+         [ngClass]="{'active': activeSection === 'elements'}"
+         (click)="activeSection = 'elements'">Elements</div>
+    <div class="sidebar-nav-item"
+         [ngClass]="{'active': activeSection === 'containers'}"
+         (click)="activeSection = 'containers'">Containers</div>
+  </div>
+
+  <div class="sidebar-content">
+    <!-- Elements Section -->
+    <div class="sidebar-section"
+         [ngClass]="{'active': activeSection === 'elements'}"
+         *ngIf="activeSection === 'elements'">
+      <div class="element-group">
+        <div class="element-grid">
+          <div *ngFor="let node of originList"
+               class="element-item"
+               draggable="true"
+               [dndDraggable]="node"
+               (dndCanceled)="onDragged($event, node, 'none')"
+               (dndCopied)="onDragged($event, node, 'copy')"
+               (dndEnd)="onDragEnd($event)"
+               (dndLinked)="onDragged($event, node, 'link')"
+               (dndMoved)="onDragged($event, node, 'move')"
+               (dndStart)="onDragStart($event)"
+               dndEffectAllowed="move">
+            <i [ngClass]="getIconClass(node.type)"></i>
+            <div class="element-name">{{ node.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Containers Section -->
+    <div class="sidebar-section scrollable"
+         [ngClass]="{'active': activeSection === 'containers'}"
+         *ngIf="activeSection === 'containers'"
+         id="containers-section">
+      <h3 class="sidebar-title">Containers</h3>
+
+      <div class="element-group">
+        <h4 class="element-group-title">Layout</h4>
+        <div class="element-grid">
+          <div class="element-item" draggable="true" data-element="div">
+            <i class="fas fa-square-full"></i>
+            <div class="element-name">Div</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="section">
+            <i class="fas fa-clone"></i>
+            <div class="element-name">Section</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="container">
+            <i class="fas fa-box-open"></i>
+            <div class="element-name">Container</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="grid">
+            <i class="fas fa-th-large"></i>
+            <div class="element-name">Grid</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="element-group">
+        <h4 class="element-group-title">Form Containers</h4>
+        <div class="element-grid">
+          <div class="element-item" draggable="true" data-element="form">
+            <i class="fas fa-wpforms"></i>
+            <div class="element-name">Form</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="fieldset">
+            <i class="fas fa-tasks"></i>
+            <div class="element-name">Fieldset</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="element-group">
+        <h4 class="element-group-title">Table</h4>
+        <div class="element-grid">
+          <div class="element-item" draggable="true" data-element="table">
+            <i class="fas fa-table"></i>
+            <div class="element-name">Table</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sidebar-title">Components</h3>
+
+      <div class="element-group">
+        <h4 class="element-group-title">Typography</h4>
+        <div class="element-grid">
+          <div class="element-item" draggable="true" data-element="heading">
+            <i class="fas fa-heading"></i>
+            <div class="element-name">Heading</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="paragraph">
+            <i class="fas fa-paragraph"></i>
+            <div class="element-name">Paragraph</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="span">
+            <i class="fas fa-text-width"></i>
+            <div class="element-name">Span</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="blockquote">
+            <i class="fas fa-quote-right"></i>
+            <div class="element-name">Quote</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="element-group">
+        <h4 class="element-group-title">Form Elements</h4>
+        <div class="element-grid">
+          <div class="element-item" draggable="true" data-element="input">
+            <i class="fas fa-keyboard"></i>
+            <div class="element-name">Input</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="textarea">
+            <i class="fas fa-align-left"></i>
+            <div class="element-name">Textarea</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="select">
+            <i class="fas fa-caret-square-down"></i>
+            <div class="element-name">Select</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="button">
+            <i class="fas fa-square"></i>
+            <div class="element-name">Button</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="checkbox">
+            <i class="fas fa-check-square"></i>
+            <div class="element-name">Checkbox</div>
+          </div>
+          <div class="element-item" draggable="true" data-element="radio">
+            <i class="fas fa-dot-circle"></i>
+            <div class="element-name">Radio</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

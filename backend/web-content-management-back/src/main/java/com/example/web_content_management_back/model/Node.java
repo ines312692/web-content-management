@@ -21,7 +21,7 @@ public class Node {
     private String height;
     private String backgroundColor;
     private String borderColor;
-    private boolean template; // Ajout de l'attribut template
+    private boolean template;
 
     @DBRef
     private List<Node> children;

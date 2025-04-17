@@ -1,0 +1,20 @@
+<div class="card project-card">
+
+  <div class="project-info">
+    <h3 class="project-title">{{ project.name }}</h3>
+    <div class="project-url">{{ project.description }}</div>
+    <div class="project-actions">
+      <button class="btn btn-outline" [routerLink]="['/project', project.id]">
+        <fa-icon [icon]="faEye"></fa-icon> View
+      </button>
+      <div class="project-actions d-flex">
+        <button class="btn btn-danger" (click)="onDelete()">
+          <fa-icon [icon]="faTrash"></fa-icon> Delete
+        </button>
+        <button class="btn btn-primary me-2" (click)="onEdit()">
+          <fa-icon [icon]="faEdit"></fa-icon> Edit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

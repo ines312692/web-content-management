@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 
 import { DndDraggableDirective, DropEffect } from 'ngx-drag-drop';
-import { NgClass, NgForOf } from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {INode} from '../../models/INode';
 import {NodeService} from '../../services/node-service.service';
 
@@ -11,7 +11,8 @@ import {NodeService} from '../../services/node-service.service';
   imports: [
     DndDraggableDirective,
     NgForOf,
-    NgClass
+    NgClass,
+    NgIf
   ],
   templateUrl: './origin-list.component.html',
   standalone: true,
@@ -21,6 +22,7 @@ export class OriginListComponent implements OnInit {
   @Output() dragStart = new EventEmitter<DragEvent>();
   @Output() dragMove = new EventEmitter<{ event: DragEvent, effect: DropEffect, node: INode, list?: INode[] }>();
   @Output() dragEnd = new EventEmitter<DragEvent>();
+  activeSection: string = 'elements';
 
   originList: INode[] = [];
 

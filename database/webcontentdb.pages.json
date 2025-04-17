@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "67e90dab1e26f93f7cd7fa8a"
+  },
+  "name": "Example Page",
+  "layout": {
+    "$ref": "layouts",
+    "$id": {
+      "$oid": "67e90c5e94198a2165d8eeb2"
+    }
+  },
+  "_class": "com.example.web_content_management_back.model.Page"
+},
+{
+  "_id": {
+    "$oid": "67e90e401e26f93f7cd7fa8b"
+  },
+  "name": "Example Page",
+  "layout": {
+    "$ref": "layouts",
+    "$id": {
+      "$oid": "67e90c5e94198a2165d8eeb2"
+    }
+  },
+  "_class": "com.example.web_content_management_back.model.Page"
+},
+{
+  "_id": {
+    "$oid": "67e90e53202d565d51a9a09f"
+  },
+  "name": "Example Page",
+  "layout": {
+    "$ref": "layouts",
+    "$id": {
+      "$oid": "67e90c5e94198a2165d8eeb2"
+    }
+  },
+  "_class": "com.example.web_content_management_back.model.Page"
+}]

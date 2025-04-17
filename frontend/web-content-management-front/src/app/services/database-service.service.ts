@@ -48,3 +48,6 @@ export class DatabaseService {
     return this.http.delete<void>(`${this.apiUrl}/${databaseId}/tables/${tableName}`);
   }
 }
+
+export class DatabaseServiceService {
+}

@@ -1,0 +1,25 @@
+
+    <h2 class="section-title">My Websites</h2>
+    <div class="card-container">
+      <app-project-website-card
+        *ngFor="let website of websites"
+        [website]="website"
+        (delete)="onWebsiteDelete($event)"
+        (edit)="openEditWebsiteModal($event)">
+      </app-project-website-card>
+      <app-add-new-card
+        text="Add New Website"
+        (add)="openCreateWebsiteModal()">
+      </app-add-new-card>
+    </div>
+
+    <app-create-website-modal #createWebsiteModal
+                              (close)="onCreateWebsiteModalClose()"
+                              (create)="onWebsiteCreate($event)">
+    </app-create-website-modal>
+
+
+
+
+
+

@@ -35,9 +35,14 @@ public class PageServiceImpl implements PageService {
     @Override
     public PageDTO createPage(PageDTO pageDTO) {
         Page page = pageMapper.toEntity(pageDTO);
-        Layout layout = layoutRepository.findById(pageDTO.getLayout().getId())
-                .orElseThrow(() -> new RuntimeException("Layout not found"));
-        page.setLayout(layout);
+
+        if (pageDTO.getLayout() != null && pageDTO.getLayout().getId() != null) {
+            Layout layout = layoutRepository.findById(pageDTO.getLayout().getId())
+                    .orElseThrow(() -> new RuntimeException("Layout not found"));
+            page.setLayout(layout);
+        } else {
+            page.setLayout(null);
+        }
 
         page = pageRepository.save(page);
         return pageMapper.toDTO(page);

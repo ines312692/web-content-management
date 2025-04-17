@@ -1,0 +1,28 @@
+<div class="custom-modal-backdrop" [style.display]="isVisible ? 'flex' : 'none'">
+  <div class="custom-modal">
+    <div class="custom-modal-header">
+      <h3 class="custom-modal-title">Create New Project</h3>
+      <button class="custom-close-modal" (click)="onClose()">
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </button>
+    </div>
+    <div class="custom-modal-body">
+      <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Project Name</label>
+          <input type="text" id="name" formControlName="name" placeholder="Enter project name">
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" formControlName="description" placeholder="Enter project description"></textarea>
+        </div>
+
+        <div class="custom-modal-footer">
+          <button type="button" class="btn btn-outline" (click)="onClose()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

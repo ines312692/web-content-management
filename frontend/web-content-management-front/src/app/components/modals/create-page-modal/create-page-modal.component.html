@@ -1,0 +1,23 @@
+<div class="custom-modal-backdrop" [style.display]="isVisible ? 'flex' : 'none'">
+  <div class="custom-modal">
+    <div class="custom-modal-header">
+      <h3 class="custom-modal-title">Créer une nouvelle page</h3>
+      <button class="custom-close-modal" (click)="onClose()">
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </button>
+    </div>
+    <div class="custom-modal-body">
+      <form [formGroup]="pageForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Nom de la page</label>
+          <input type="text" id="name" formControlName="name" placeholder="Entrez le nom de la page">
+        </div>
+
+        <div class="custom-modal-footer">
+          <button type="button" class="btn btn-outline" (click)="onClose()">Annuler</button>
+          <button type="submit" class="btn btn-primary">Créer la page</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

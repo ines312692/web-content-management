@@ -7,7 +7,7 @@ import { Page } from '../models/Page.interface';
   providedIn: 'root'
 })
 export class PageService {
-  private readonly apiUrl = 'http://localhost:8081/api/pages';
+  private readonly apiUrl = 'http://localhost:8081/pages';
 
   constructor(private readonly http: HttpClient) {}
 

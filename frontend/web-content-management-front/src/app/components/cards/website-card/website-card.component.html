@@ -6,7 +6,7 @@
     <h3 class="site-title">{{ website.name }}</h3>
     <div class="site-url">{{ website.description }}</div>
     <div class="site-actions">
-      <button class="btn btn-outline">
+      <button class="btn btn-outline" (click)="onView()">
         <fa-icon [icon]="faEye"></fa-icon> View
       </button>
       <div class="site-actions d-flex">

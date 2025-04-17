@@ -1,0 +1,40 @@
+[{
+  "_id": "8f763b56-59a1-4f46-a740-3f95df7004fd",
+  "name": "c est un site",
+  "domain": "monsiteweb.com",
+  "type": "e-commerce",
+  "primaryColor": "#FF5733",
+  "description": "Un site de vente en lignee.",
+  "pages": [],
+  "_class": "com.example.web_content_management_back.model.Website"
+},
+{
+  "_id": "f6db6556-eb05-42f0-8867-2f13135e8ac5",
+  "name": "Mon Site Web",
+  "domain": "monsiteweb.com",
+  "type": "e-commerce",
+  "primaryColor": "#FF5733",
+  "description": "Un site de vente en ligne.",
+  "pages": [],
+  "_class": "com.example.web_content_management_back.model.Website"
+},
+{
+  "_id": "3585b485-84dc-4f88-8f67-4e65122a1104",
+  "name": "Mon Site Webb",
+  "domain": "monsiteweb.com",
+  "type": "e-commerce",
+  "primaryColor": "#FF5733",
+  "description": "Un site de vente en ligne.",
+  "pages": [],
+  "_class": "com.example.web_content_management_back.model.Website"
+},
+{
+  "_id": "20138672-402d-4acf-a8b7-7b99911028c1",
+  "name": "e5dem yehdik",
+  "domain": "monsiteweb.com",
+  "type": "e-commerce",
+  "primaryColor": "#FF5733",
+  "description": "Un site de vente en ligne.",
+  "pages": [],
+  "_class": "com.example.web_content_management_back.model.Website"
+}]

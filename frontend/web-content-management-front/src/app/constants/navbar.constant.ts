@@ -3,5 +3,5 @@ import {NavItem} from '../models/navbar.interface';
 export const NAV_ITEMS: NavItem[] = [
   { navItemLabel: 'Home', link: '#' },
   { navItemLabel: 'About', link: '#' },
-  { navItemLabel: 'Contact', link: '#' }
+  {navItemLabel:'login', link:'login'},
 ];

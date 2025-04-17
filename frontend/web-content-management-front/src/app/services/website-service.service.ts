@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError, Observable, tap, throwError} from 'rxjs';
+import {catchError, Observable, Subject, tap, throwError} from 'rxjs';
 import {Website} from '../models/Website.interface';
 
 
@@ -9,6 +9,7 @@ import {Website} from '../models/Website.interface';
 })
 export class WebsiteService {
   private readonly apiUrl = 'http://localhost:8081/api/websites';
+  private readonly pagesUpdated = new Subject<void>();
 
   constructor(private readonly http: HttpClient) {
   }
@@ -18,27 +19,33 @@ export class WebsiteService {
     return this.http.post<Website>(this.apiUrl, website);
   }
 
-  getPagesByWebsiteId(websiteId: string) {
-    const url = `http://localhost:8081/api/websites/${websiteId}/pages`;
+  getPagesByWebsiteId(websiteId: string | null): Observable<any[]> {
+    const url = `${this.apiUrl}/${websiteId}/pages`;
     return this.http.get<any[]>(url).pipe(
       tap((pages) => console.log('Received pages:', pages)),
       catchError((error: HttpErrorResponse) => {
-        if (error.error instanceof SyntaxError) {
-          console.error('Invalid JSON response:', error.error);
-        } else {
-          console.error('Error fetching pages:', error);
-        }
+        console.error('Error fetching pages:', error);
         return throwError(() => new Error('Erreur lors de la récupération des pages.'));
       })
     );
   }
 
-  addPageToWebsite(websiteId: string, page: any) {
-    return this.http.post<any>(`/api/websites/${websiteId}/pages`, page);
+  addPageToWebsite(websiteId: string, page: any): Observable<any> {
+    const url = `${this.apiUrl}/${websiteId}/pages`;
+    return this.http.post<any>(url, page).pipe(
+      tap(() => this.pagesUpdated.next())
+    );
   }
 
-  deletePageFromWebsite(websiteId: string, id: string) {
-    return this.http.delete(`/api/websites/${websiteId}/pages/${id}`);
+  deletePageFromWebsite(websiteId: string, id: string): Observable<string> {
+    const url = `${this.apiUrl}/${websiteId}/pages/${id}`;
+    return this.http.delete(url, { responseType: 'text' }).pipe(
+      tap(() => this.pagesUpdated.next())
+    );
+  }
+
+  getPagesUpdateListener(): Observable<void> {
+    return this.pagesUpdated.asObservable();
   }
 
   getWebsites(): Observable<Website[]> {
@@ -70,5 +77,17 @@ export class WebsiteService {
       })
     );
   }
+  getWebsiteById(websiteId: string): Observable<Website> {
+    const url = `${this.apiUrl}/${websiteId}`;
+    return this.http.get<Website>(url).pipe(
+      tap((response) => console.log('Website fetched:', response)),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error fetching website:', error);
+        return throwError(() => new Error('Erreur lors de la récupération du site web.'));
+      })
+    );
+  }
 }
 
+export class WebsiteServiceService {
+}

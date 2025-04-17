@@ -6,7 +6,7 @@
       <div class="dashboard-title">
         <h1>Dashboard</h1>
       </div>
-      <div class="dashboard-actions">
+      <div class="dashboard-actions" *ngIf="!isResponsable">
         <button (click)="openCreateWebsiteModal()" class="action-button">
           <fa-icon [icon]="faPlus"></fa-icon> Create New Website
         </button>
@@ -15,16 +15,32 @@
 
     <app-profile-section class="app-profile-container" (editProfile)="openEditProfileModal()"></app-profile-section>
 
-    <h2 class="section-title">My Websites</h2>
-    <div class="card-container">
-      <app-website-card *ngFor="let website of (websites$ | async)?.slice(0, 2)" [website]="website" (delete)="onWebsiteDelete($event)" (edit)="openEditWebsiteModal($event)"></app-website-card>
-      <app-add-new-card text="Add New Website" (add)="openCreateWebsiteModal()"></app-add-new-card>
+    <div *ngIf="isResponsable">
+      <h2 class="section-title">Users Management</h2>
+      <div class="card-container">
+        <app-user-card *ngFor="let user of (users$ | async)" [user]="user" (delete)="onUserDelete($event)" ></app-user-card>
+        <app-add-new-card text="Ajouter un utilisateur" (add)="openCreateUserModal()"></app-add-new-card>
+      </div>
     </div>
 
-    <h2 class="section-title">My Databases</h2>
-    <div class="card-container">
-      <app-database-card *ngFor="let database of (databases$ | async)?.slice(0, 2)" [database]="database"></app-database-card>
-      <app-add-new-card text="Add New Database" (add)="openCreateDatabaseModal()"></app-add-new-card>
+    <div *ngIf="!isResponsable">
+      <h2 class="section-title">My Websites</h2>
+      <div class="card-container">
+        <app-website-card *ngFor="let website of (websites$ | async)?.slice(0, 2)" [website]="website" (delete)="onWebsiteDelete($event)" (edit)="openEditWebsiteModal($event)"></app-website-card>
+        <app-add-new-card text="Add New Website" (add)="openCreateWebsiteModal()"></app-add-new-card>
+      </div>
+
+      <h2 class="section-title">My Projects</h2>
+      <div class="card-container">
+        <app-project-card *ngFor="let project of (projects$ | async)?.slice(0, 2)" [project]="project" (delete)="onProjectDelete($event)" (edit)="openEditProjectModal($event)"></app-project-card>
+        <app-add-new-card text="Add New Project" (add)="openCreateProjectModal()"></app-add-new-card>
+      </div>
+
+      <h2 class="section-title">My Databases</h2>
+      <div class="card-container">
+        <app-database-card *ngFor="let database of (databases$ | async)?.slice(0, 2)" [database]="database"></app-database-card>
+        <app-add-new-card text="Add New Database" (add)="openCreateDatabaseModal()"></app-add-new-card>
+      </div>
     </div>
   </div>
 </div>
@@ -43,3 +59,14 @@
                            (close)="onCreateDatabaseModalClose()"
                            (create)="onDatabaseCreate()">
 </app-create-database-modal>
+
+<app-create-project-modal #createProjectModal
+                          (close)="onCreateProjectModalClose()"
+                          (create)="onProjectCreate($event)">
+</app-create-project-modal>
+
+<app-create-user-modal #createUserModal
+                       (close)="onCreateUserModalClose()"
+                       (create)="onUserCreate($event)">
+</app-create-user-modal>
+

@@ -1,0 +1,19 @@
+<div class="card user-card">
+  <div class="card-header">
+    <div class="card-title">{{ user.name }}</div>
+  </div>
+  <div class="user-info">
+    <div class="user-status">
+      <fa-icon [icon]="faUser"></fa-icon>
+      <span class="status-text">Connected</span>
+    </div>
+    <div class="user-actions d-flex">
+      <button class="btn btn-danger" (click)="onDelete()">
+        <fa-icon [icon]="faTrash"></fa-icon> Delete
+      </button>
+      <button class="btn btn-primary me-2" (click)="onEdit()">
+        <fa-icon [icon]="faEdit"></fa-icon> Edit
+      </button>
+    </div>
+  </div>
+</div>

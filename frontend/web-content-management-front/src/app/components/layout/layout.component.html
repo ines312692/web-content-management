@@ -20,7 +20,11 @@
       <div class="card-body">
         <div class="card-title d-flex flex-sm-wrap align-items-center justify-content-between">
           <h6>{{ node?.name }} <sup class="text-info">{{ node?.type | firstChar }}</sup></h6>
-          <button type="button" class="btn btn-sm" (click)="onRemove(node, list)">❌</button>
+          <button type="button" class="btn btn-sm" (click)="onRemove(node, list)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6H21M9 6V4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V6M18 6V20C18 20.5523 17.5523 21 17 21H7C6.44772 21 6 20.5523 6 20V6H18Z" stroke="#1E90FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
         </div>
         <div *ngIf="node?.type !== 'widget'" class="d-flex align-items-start gap-2 flex-column p-2">
           <div

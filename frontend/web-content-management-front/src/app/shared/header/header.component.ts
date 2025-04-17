@@ -16,6 +16,6 @@ import {NgForOf} from '@angular/common';
   ]
 })
 export class HeaderComponent {
-  title = 'Your Website Title';
+  title = 'Website Builder';
   navItems: NavItem[] = NAV_ITEMS;
 }
