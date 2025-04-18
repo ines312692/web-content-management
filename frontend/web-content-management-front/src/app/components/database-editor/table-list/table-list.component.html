@@ -1,12 +1,34 @@
-<div *ngFor="let table of tables" class="table-item">
-  <ng-container *ngIf="table.id && table.name">
-    <h3 class="table-name">{{ table.name }}</h3>
-    <div class="table-actions">
-      <button (click)="editTable(table)">Modifier</button>
-      <button (click)="deleteTable(table.name)">Supprimer</button>
+<div class="table-list">
+  <div *ngFor="let table of tables" class="table-card">
+    <ng-container *ngIf="table.id && table.name">
+      <div class="table-header">
+        <div class="table-icon">
+          <i class="fas fa-table"></i>
+        </div>
+        <h3 class="table-name">{{ table.name }}</h3>
+      </div>
+      
+      <div class="table-info">
+        <div class="info-item" *ngIf="table.columns">
+          <i class="fas fa-columns"></i>
+          <span>{{ table.columns.length || 0 }} Columns</span>
+        </div>
+        <!-- Removed the table.records reference as it doesn't exist in the Table interface -->
+      </div>
+      
+      <div class="table-actions">
+        <button class="btn-outline" (click)="editTable(table)">
+          <i class="fas fa-edit"></i> Edit
+        </button>
+        <button class="btn-danger" (click)="confirmDelete(table.name)">
+          <i class="fas fa-trash-alt"></i> Delete
+        </button>
+      </div>
+    </ng-container>
+    
+    <div class="missing-data" *ngIf="!table.id || !table.name">
+      <i class="fas fa-exclamation-triangle"></i>
+      <p>Missing table information</p>
     </div>
-  </ng-container>
-  <ng-container *ngIf="!table.id || !table.name">
-    <h3 class="missing-info">Informations de la table manquantes</h3>
-  </ng-container>
+  </div>
 </div>

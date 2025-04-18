@@ -1,46 +1,92 @@
-.table-item {
+.add-table-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+}
+
+.input-group {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.table-name {
-  margin: 0;
-  font-size: 1.2rem;
-  color: #333333;
-  flex: 1;
+.input-group i {
+  position: absolute;
+  left: 12px;
+  color: #777;
 }
 
-.table-actions {
+.input-group input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.input-group input.is-invalid {
+  border-color: #dc3545;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+.form-actions {
   display: flex;
-  gap: 0.5rem;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-button {
-  padding: 0.4rem 0.8rem;
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
   font-size: 0.9rem;
-  color: #ffffff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
 }
 
-button:hover {
-  background-color: #0056b3;
+.btn i {
+  margin-right: 8px;
 }
 
-button:nth-child(2) {
-  background-color: #dc3545;
+.btn-primary {
+  background: #007bff;
+  color: white;
+  border: none;
 }
 
-button:nth-child(2):hover {
-  background-color: #a71d2a;
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.btn-outline:hover {
+  background: #f0f8ff;
 }

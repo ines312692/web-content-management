@@ -1,21 +1,318 @@
-div {
-  padding: 2rem;
-  background-color: #f4f4f4;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Database Editor Container Styles */
+.database-editor-container {
+  margin: 20px !important;
 }
 
-h2 {
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 1.5rem;
-  text-align: center;
+.database-editor-container .editor-header {
+  margin-bottom: 20px !important;
 }
 
-app-add-table {
-  margin-bottom: 4rem;
+.database-editor-container .editor-header h2 {
+  font-size: 1.8rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 5px !important;
 }
 
-app-table-list {
-  margin-top: 2rem;
+.database-editor-container .editor-header .subtitle {
+  color: #777 !important;
+  font-size: 0.9rem !important;
+}
+
+.database-editor-container .editor-content .card {
+  background: white !important;
+  border-radius: 10px !important;
+  box-shadow: var(--shadow) !important;
+  overflow: hidden !important;
+  margin-bottom: 30px !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.database-editor-container .editor-content .card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.database-editor-container .editor-content .card .card-header {
+  padding: 15px 20px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.database-editor-container .editor-content .card .card-header .card-title {
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+}
+
+.database-editor-container .editor-content .card .card-content {
+  padding: 20px !important;
+}
+
+.database-editor-container .editor-content .section-title {
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  margin: 30px 0 20px !important;
+  padding-bottom: 10px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.database-editor-container .editor-content .tables-container {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+  gap: 20px !important;
+}
+
+.database-editor-container .editor-content .empty-state {
+  background: white !important;
+  border-radius: 10px !important;
+  box-shadow: var(--shadow) !important;
+  padding: 40px !important;
+  text-align: center !important;
+  transition: all 0.3s ease !important;
+}
+
+.database-editor-container .editor-content .empty-state i {
+  font-size: 3rem !important;
+  color: #ccc !important;
+  margin-bottom: 20px !important;
+}
+
+.database-editor-container .editor-content .empty-state p {
+  font-size: 1.1rem !important;
+  color: #555 !important;
+  margin-bottom: 10px !important;
+}
+
+.database-editor-container .editor-content .empty-state .hint {
+  font-size: 0.9rem !important;
+  color: #888 !important;
+}
+
+/* Table List Component Styles */
+.table-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+  gap: 20px !important;
+}
+
+.table-list .table-card {
+  background: white !important;
+  border-radius: 10px !important;
+  box-shadow: var(--shadow) !important;
+  overflow: hidden !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.table-list .table-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.table-list .table-card .table-header {
+  padding: 15px !important;
+  display: flex !important;
+  align-items: center !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.table-list .table-card .table-header .table-icon {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 10px !important;
+  background: var(--light-bg) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-right: 12px !important;
+}
+
+.table-list .table-card .table-header .table-icon i {
+  font-size: 1.2rem !important;
+  color: var(--primary-color) !important;
+}
+
+.table-list .table-card .table-header .table-name {
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+}
+
+.table-list .table-card .table-info {
+  padding: 12px 15px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.table-list .table-card .table-info .info-item {
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 8px !important;
+}
+
+.table-list .table-card .table-info .info-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+.table-list .table-card .table-info .info-item i {
+  margin-right: 8px !important;
+  color: #777 !important;
+  width: 16px !important;
+  text-align: center !important;
+}
+
+.table-list .table-card .table-info .info-item span {
+  font-size: 0.9rem !important;
+  color: #555 !important;
+}
+
+.table-list .table-card .table-actions {
+  padding: 15px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+}
+
+.table-list .table-card .table-actions button {
+  flex: 1 !important;
+  padding: 8px 16px !important;
+  border-radius: 5px !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.table-list .table-card .table-actions button i {
+  margin-right: 8px !important;
+}
+
+.table-list .table-card .table-actions .btn-outline {
+  background: transparent !important;
+  color: var(--primary-color) !important;
+  border: 1px solid var(--primary-color) !important;
+}
+
+.table-list .table-card .table-actions .btn-outline:hover {
+  background: var(--hover-color) !important;
+}
+
+.table-list .table-card .table-actions .btn-danger {
+  background: transparent !important;
+  color: #dc3545 !important;
+  border: 1px solid #dc3545 !important;
+}
+
+.table-list .table-card .table-actions .btn-danger:hover {
+  background: #fff2f3 !important;
+}
+
+.table-list .table-card .missing-data {
+  padding: 30px !important;
+  text-align: center !important;
+}
+
+.table-list .table-card .missing-data i {
+  font-size: 2rem !important;
+  color: #dc3545 !important;
+  margin-bottom: 15px !important;
+}
+
+.table-list .table-card .missing-data p {
+  color: #777 !important;
+}
+
+/* Add Table Component Styles */
+.add-table-form {
+  width: 100% !important;
+}
+
+.add-table-form .form-group {
+  margin-bottom: 20px !important;
+}
+
+.add-table-form .form-group label {
+  display: block !important;
+  margin-bottom: 8px !important;
+  font-weight: 500 !important;
+  color: #444 !important;
+}
+
+.add-table-form .form-group .input-group {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.add-table-form .form-group .input-group i {
+  position: absolute !important;
+  left: 12px !important;
+  color: #777 !important;
+}
+
+.add-table-form .form-group .input-group input {
+  width: 100% !important;
+  padding: 12px 12px 12px 40px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 5px !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.add-table-form .form-group .input-group input:focus {
+  outline: none !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2) !important;
+}
+
+.add-table-form .form-group .input-group input.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.add-table-form .form-group .error-message {
+  color: #dc3545 !important;
+  font-size: 0.85rem !important;
+  margin-top: 5px !important;
+}
+
+.add-table-form .form-actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  margin-top: 20px !important;
+}
+
+.add-table-form .form-actions .btn {
+  padding: 10px 20px !important;
+  border-radius: 5px !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.add-table-form .form-actions .btn i {
+  margin-right: 8px !important;
+}
+
+.add-table-form .form-actions .btn-primary {
+  background: var(--primary-color) !important;
+  color: white !important;
+  border: none !important;
+}
+
+.add-table-form .form-actions .btn-primary:hover {
+  background: var(--secondary-color) !important;
+}
+
+.add-table-form .form-actions .btn-outline {
+  background: transparent !important;
+  color: var(--primary-color) !important;
+  border: 1px solid var(--primary-color) !important;
+}
+
+.add-table-form .form-actions .btn-outline:hover {
+  background: var(--hover-color) !important;
 }

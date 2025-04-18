@@ -1,7 +1,29 @@
-<div>
-  <h2>Éditeur de base de données</h2>
+<div class="database-editor-container">
+  <div class="editor-header">
+    <h2>Database Editor</h2>
+    <p class="subtitle">Manage tables in your database</p>
+  </div>
 
-  <app-add-table (onAdd)="addTable($event)"></app-add-table>
+  <div class="editor-content">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Add New Table</div>
+      </div>
+      <div class="card-content">
+        <app-add-table (onAdd)="addTable($event)"></app-add-table>
+      </div>
+    </div>
 
-  <app-table-list  [tables]="tables" (onEdit)="editTable($event)" (onDelete)="deleteTable($event)"></app-table-list>
+    <h3 class="section-title">Database Tables</h3>
+    
+    <div class="tables-container" *ngIf="tables.length > 0">
+      <app-table-list [tables]="tables" (onEdit)="editTable($event)" (onDelete)="deleteTable($event)"></app-table-list>
+    </div>
+    
+    <div class="empty-state" *ngIf="tables.length === 0">
+      <i class="fas fa-database"></i>
+      <p>No tables found in this database</p>
+      <p class="hint">Create your first table using the form above</p>
+    </div>
+  </div>
 </div>

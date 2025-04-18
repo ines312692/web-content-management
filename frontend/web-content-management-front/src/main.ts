@@ -5,24 +5,23 @@ import { importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { provideRouter, Routes, withDebugTracing, withRouterConfig } from '@angular/router';
 
-import {HomeComponent} from './app/components/home/home.component';
-import {MainComponent} from './app/components/main/main.component';
-import {WebsiteSetupComponent} from './app/components/website-setup/website-setup.component';
-import {PageListComponent} from './app/components/page-list/page-list.component';
-import {DashboardComponent} from './app/components/dashboard/dashboard.component';
-import {ProjectDetailsComponent} from './app/components/project-details/project-details.component';
+import { HomeComponent } from './app/components/home/home.component';
+import { MainComponent } from './app/components/main/main.component';
+import { WebsiteSetupComponent } from './app/components/website-setup/website-setup.component';
+import { DashboardComponent } from './app/components/dashboard/dashboard.component';
+import { ProjectDetailsComponent } from './app/components/project-details/project-details.component';
 
-
-const appRoutes: Routes = [
+const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path:'website-setup', component: WebsiteSetupComponent},
-  {path:'home',component:HomeComponent},
-  {path:'main',component:MainComponent},
+  { path: 'website-setup', component: WebsiteSetupComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'main', component: MainComponent },
   { path: 'main/:id', component: MainComponent },
-  { path: 'pages-list/:id', component:PageListComponent },
+  { path: 'pages-list/:id', loadComponent: () => import('./app/components/page-list/page-list.component').then(m => m.PageListComponent) },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'dashboard/:id', component: DashboardComponent },
-  {path:'login', loadComponent: () => import('./app/components/login/login.component').then(m => m.LoginComponent)},
-  {path: 'database-editor/:id', loadComponent: () => import('./app/components/database-editor/database-editor.component').then(m => m.DatabaseEditorComponent)},
+  { path: 'login', loadComponent: () => import('./app/components/login/login.component').then(m => m.LoginComponent) },
+  { path: 'database-editor/:id', loadComponent: () => import('./app/components/database-editor/database-editor.component').then(m => m.DatabaseEditorComponent) },
   { path: 'project/:id', component: ProjectDetailsComponent },
 ];
 
@@ -33,4 +32,4 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes, withDebugTracing(), withRouterConfig({ paramsInheritanceStrategy: 'always' }))
   ]
 })
-  .catch((err) => console.error(err));
+.catch((err) => console.error(err));
