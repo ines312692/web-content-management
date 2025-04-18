@@ -5,13 +5,17 @@ import { importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { provideRouter, Routes, withDebugTracing, withRouterConfig } from '@angular/router';
 
-import { HomeComponent } from './app/components/home/home.component';
-import { MainComponent } from './app/components/main/main.component';
-import { WebsiteSetupComponent } from './app/components/website-setup/website-setup.component';
-import { DashboardComponent } from './app/components/dashboard/dashboard.component';
-import { ProjectDetailsComponent } from './app/components/project-details/project-details.component';
+import {HomeComponent} from './app/components/home/home.component';
+import {MainComponent} from './app/components/main/main.component';
+import {WebsiteSetupComponent} from './app/components/website-setup/website-setup.component';
+import {PageListComponent} from './app/components/page-list/page-list.component';
+import {DashboardComponent} from './app/components/dashboard/dashboard.component';
+import {ProjectDetailsComponent} from './app/components/project-details/project-details.component';
+import {RegisterComponent} from './app/components/register/register.component';
 
-const routes: Routes = [
+
+const appRoutes: Routes = [
+  { path: 'register', component: RegisterComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'website-setup', component: WebsiteSetupComponent },
   { path: 'home', component: HomeComponent },

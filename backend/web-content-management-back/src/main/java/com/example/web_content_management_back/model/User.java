@@ -5,6 +5,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @Document(collection = "users")
 @Data
 public class User {
@@ -18,4 +21,9 @@ public class User {
 
     @DBRef
     private User responsibleUser;
+
+    @DBRef
+    private List<Project> projects = new ArrayList<>();
+    @DBRef
+    private List<Database> databases = new ArrayList<>();
 }

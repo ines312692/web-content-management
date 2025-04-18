@@ -1,29 +1,54 @@
-<div class="database-editor-container">
-  <div class="editor-header">
-    <h2>Database Editor</h2>
-    <p class="subtitle">Manage tables in your database</p>
+<div class="dashboard-container">
+  <app-sidebar></app-sidebar>
+
+<div class="main-content">
+  <div class="dashboard-header">
+    <div class="dashboard-title">
+      <h1>Database Management</h1>
+    </div>
+    <div class="dashboard-actions">
+
+      <button id="create-table-btn">
+        <fa-icon [icon]="faPlus"></fa-icon> Create New Table
+      </button>
+    </div>
   </div>
 
-  <div class="editor-content">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Add New Table</div>
-      </div>
-      <div class="card-content">
-        <app-add-table (onAdd)="addTable($event)"></app-add-table>
+  <!-- Database Info Card -->
+  <div class="db-info-card">
+    <div class="db-header">
+      <h2 class="db-title">Products Database</h2>
+      <div class="db-status">
+        <span class="status-indicator online"></span>
+        Connected
       </div>
     </div>
-
-    <h3 class="section-title">Database Tables</h3>
-    
-    <div class="tables-container" *ngIf="tables.length > 0">
-      <app-table-list [tables]="tables" (onEdit)="editTable($event)" (onDelete)="deleteTable($event)"></app-table-list>
-    </div>
-    
-    <div class="empty-state" *ngIf="tables.length === 0">
-      <i class="fas fa-database"></i>
-      <p>No tables found in this database</p>
-      <p class="hint">Create your first table using the form above</p>
+    <div class="db-details">
+      <div class="detail-item">
+        <div class="detail-label">Type</div>
+        <div class="detail-value">MySQL</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Size</div>
+        <div class="detail-value">245 MB</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Tables</div>
+        <div class="detail-value">12</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Host</div>
+        <div class="detail-value">db.example.com</div>
+      </div>
     </div>
   </div>
+
+<div>
+  <h2>Éditeur de base de données</h2>
+
+  <app-add-table (onAdd)="addTable($event)"></app-add-table>
+
+  <app-table-list  [tables]="tables" (onEdit)="editTable($event)" (onDelete)="deleteTable($event)"></app-table-list>
+</div>
+</div>
 </div>

@@ -1,0 +1,99 @@
+<div class="background-overlay"></div>
+<div class="registration-container">
+  <div class="registration-form">
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          placeholder="Enter full name"
+          required
+        >
+        <div
+          *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+          class="error-message"
+        >
+          Name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Enter email"
+          required
+        >
+        <div
+          *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+          class="error-message"
+        >
+          <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Enter password"
+          required
+        >
+        <div
+          *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+          class="error-message"
+        >
+          <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="registerForm.get('password')?.errors?.['minlength']">
+            Password must be at least 6 characters
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role" formControlName="role" required>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+          <option value="manager">Manager</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="responsable">Responsible User (Optional)</label>
+        <select id="responsable" formControlName="responsableId">
+          <option value="">None</option>
+          <option *ngFor="let user of availableUsers" [value]="user.id">{{user.name}} ({{user.email}})</option>
+        </select>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-alert">
+        {{ errorMessage }}
+      </div>
+
+      <button
+        type="submit"
+        class="register-button"
+        [disabled]="registerForm.invalid || isLoading"
+      >
+        {{ isLoading ? 'Creating...' : 'Create User' }}
+      </button>
+
+      <div class="login-link">
+        <a routerLink="/login">Back to Login</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="registration-image">
+    <img ngSrc="assets/images/logo-bg.png" alt="Company" height="540" width="410">
+  </div>
+</div>

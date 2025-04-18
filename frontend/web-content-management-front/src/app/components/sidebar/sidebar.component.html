@@ -43,14 +43,19 @@
       <fa-icon [icon]="faCog"></fa-icon>
       <span>Settings</span>
     </button>
+    <button class="menu-item" (click)="onLogout()">
+      <fa-icon [icon]="faSignOutAlt"></fa-icon>
+      <span>Logout</span>
+    </button>
   </div>
   <div class="user-info">
     <div class="user-avatar">
       <fa-icon [icon]="faUser"></fa-icon>
     </div>
     <div>
-      <div class="user-name">Amine Rachdi</div>
-      <div class="user-role">User</div>
+      <div class="user-name">{{ userName }}</div>
+      <div class="user-role">{{ userRole }}</div>
     </div>
+
   </div>
 </div>

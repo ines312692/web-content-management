@@ -1,34 +1,53 @@
-<div class="table-list">
-  <div *ngFor="let table of tables" class="table-card">
-    <ng-container *ngIf="table.id && table.name">
-      <div class="table-header">
-        <div class="table-icon">
-          <i class="fas fa-table"></i>
-        </div>
-        <h3 class="table-name">{{ table.name }}</h3>
-      </div>
-      
-      <div class="table-info">
-        <div class="info-item" *ngIf="table.columns">
-          <i class="fas fa-columns"></i>
-          <span>{{ table.columns.length || 0 }} Columns</span>
-        </div>
-        <!-- Removed the table.records reference as it doesn't exist in the Table interface -->
-      </div>
-      
+<div class="tab-content">
+  <div class="table-container">
+    <div class="table-header">
+      <h3 class="table-title">Tables de la base de données</h3>
       <div class="table-actions">
-        <button class="btn-outline" (click)="editTable(table)">
-          <i class="fas fa-edit"></i> Edit
-        </button>
-        <button class="btn-danger" (click)="confirmDelete(table.name)">
-          <i class="fas fa-trash-alt"></i> Delete
-        </button>
+        <div class="search-box">
+          <fa-icon [icon]="faSearch"></fa-icon>
+          <input type="text" placeholder="Rechercher des tables...">
+        </div>
       </div>
-    </ng-container>
-    
-    <div class="missing-data" *ngIf="!table.id || !table.name">
-      <i class="fas fa-exclamation-triangle"></i>
-      <p>Missing table information</p>
+    </div>
+    <div class="table-responsive">
+      <table class="data-table" *ngIf="tables && tables.length > 0; else emptyState">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom de la table</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let table of tables">
+          <ng-container *ngIf="table.id && table.name">
+            <td>{{ table.id }}</td>
+            <td>{{ table.name }}</td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn view-btn" title="Voir">
+                  <fa-icon [icon]="faEye"></fa-icon>
+                </button>
+                <button class="action-btn edit-btn" (click)="editTable(table)" title="Modifier">
+                  <fa-icon [icon]="faEdit"></fa-icon>
+                </button>
+                <button class="action-btn delete-btn" (click)="deleteTable(table.name)" title="Supprimer">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+        </tr>
+        </tbody>
+      </table>
+
+      <ng-template #emptyState>
+        <div class="empty-state">
+          <fa-icon [icon]="faDatabase" class="empty-icon"></fa-icon>
+          <p>Aucune table disponible pour le moment</p>
+          <p class="empty-state-hint">Utilisez le formulaire ci-dessus pour ajouter une nouvelle table</p>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

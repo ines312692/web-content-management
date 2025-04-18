@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Management - WebBuilder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <style>
+
+  </style>
+</head>
+<body>
+<!-- Sidebar -->
+
+
+<!-- Main Content -->
+
+
+  <!-- Database Info Card -->
+  <div class="db-info-card">
+    <div class="db-header">
+      <h2 class="db-title">Products Database</h2>
+      <div class="db-status">
+        <span class="status-indicator online"></span>
+        Connected
+      </div>
+    </div>
+    <div class="db-details">
+      <div class="detail-item">
+        <div class="detail-label">Type</div>
+        <div class="detail-value">MySQL</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Size</div>
+        <div class="detail-value">245 MB</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Tables</div>
+        <div class="detail-value">12</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Host</div>
+        <div class="detail-value">db.example.com</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" data-tab="tables">Tables</div>
+    <div class="tab" data-tab="query">SQL Query</div>
+    <div class="tab" data-tab="settings">Settings</div>
+  </div>
+
+  <!-- Tables Tab Content -->
+  <div class="tab-content" id="tables-content">
+    <div class="table-container">
+      <div class="table-header">
+        <h3 class="table-title">Products</h3>
+        <div class="table-actions">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search products...">
+          </div>
+          <button class="btn btn-primary" id="add-record-btn">
+            <i class="fas fa-plus"></i> Add Record
+          </button>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>1</td>
+            <td>Laptop Pro X</td>
+            <td>Electronics</td>
+            <td>$1299.99</td>
+            <td>24</td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn view-btn">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn edit-btn">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete-btn">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Wireless Headphones</td>
+            <td>Electronics</td>
+            <td>$199.99</td>
+            <td>56</td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn view-btn">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn edit-btn">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete-btn">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Smart Watch</td>
+            <td>Electronics</td>
+            <td>$249.99</td>
+            <td>32</td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn view-btn">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn edit-btn">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete-btn">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Desk Chair</td>
+            <td>Furniture</td>
+            <td>$159.99</td>
+            <td>18</td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn view-btn">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn edit-btn">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete-btn">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Coffee Maker</td>
+            <td>Appliances</td>
+            <td>$89.99</td>
+            <td>42</td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn view-btn">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn edit-btn">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete-btn">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-footer">
+        <div class="rows-per-page">
+          Rows per page:
+          <select class="rows-select">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+          <span>1-5 of 42</span>
+        </div>
+        <div class="pagination">
+          <button class="page-btn" disabled>
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn">4</button>
+          <button class="page-btn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Query Tab Content (Initially Hidden) -->
+  <div class="tab-content" id="query-content" style="display: none;">
+    <div class="query-panel">
+      <h3 class="table-title" style="margin-bottom: 15px;">SQL Query</h3>
+      <textarea class="query-editor" placeholder="Enter your SQL query here...">SELECT * FROM products WHERE category = 'Electronics' ORDER BY price DESC;</textarea>
+      <div class="query-actions">
+        <button class="btn btn-outline">Clear</button>
+        <button class="btn btn-primary">Execute Query</button>
+      </div>
+    </div>
+    <div class="table-container">
+      <div class="table-header">
+        <h3 class="table-title">Query Results</h3>
+        <div class="table-actions">
+          <button class="btn btn-outline">
+            <i class="fas fa-download"></i> Export Results
+          </button>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>1</td>
+            <td>Laptop Pro X</td>
+            <td>Electronics</td>
+            <td>$1299.99</td>
+            <td>24</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Smart Watch</td>
+            <td>Electronics</td>
+            <td>$249.99</td>
+            <td>32</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Wireless Headphones</td>
+            <td>Electronics</td>
+            <td>$199.99</td>
+            <td>56</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-footer">
+        <div>3 records found</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Tab Content (Initially Hidden) -->
+  <div class="tab-content" id="settings-content" style="display: none;">
+    <div class="db-info-card">
+      <h3 class="table-title" style="margin-bottom: 20px;">Database Configuration</h3>
+      <form id="db-settings-form">
+        <div class="form-group">
+          <label for="db-name">Database Name</label>
+          <input type="text" id="db-name" value="products_db">
+        </div>
+        <div class="form-group">
+          <label for="db-host">Host</label>
+          <input type="text" id="db-host" value="db.example.com">
+        </div>
+        <div class="form-group">
+          <label for="db-port">Port</label>
+          <input type="text" id="db-port" value="3306">
+        </div>
+        <div class="form-group">
+          <label for="db-user">Username</label>
+          <input type="text" id="db-user" value="db_user">
+        </div>
+        <div class="form-group">
+          <label for="db-password">Password</label>
+          <input type="password" id="db-password" value="********">
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="btn btn-outline">Cancel</button>
+          <button type="button" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="db-info-card">
+      <h3 class="table-title" style="margin-bottom: 20px;">Advanced Settings</h3>
+      <div class="form-group">
+        <label for="backup-schedule">Automatic Backup Schedule</label>
+        <select id="backup-schedule" class="form-control">
+          <option value="daily">Daily</option>
+          <option value="weekly" selected>Weekly</option>
+          <option value="monthly">Monthly</option>
+          <option value="never">Never</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="connection-limit">Max Connections</label>
+        <input type="number" id="connection-limit" value="100">
+      </div>
+      <div class="form-group">
+        <label for="timeout-setting">Connection Timeout (seconds)</label>
+        <input type="number" id="timeout-setting" value="30">
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="btn btn-danger">Delete Database</button>
+        <button class="btn btn-primary">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Record Modal -->
+  <div class="modal-backdrop" id="add-record-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Add New Record</h3>
+        <button class="close-modal" id="close-record-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="add-record-form">
+          <div class="form-group">
+            <label for="product-name">Product Name</label>
+            <input type="text" id="product-name" placeholder="Enter product name" required>
+          </div>
+          <div class="form-group">
+            <label for="product-category">Category</label>
+            <select id="product-category">
+              <option value="electronics">Electronics</option>
+              <option value="clothing">Clothing</option>
+              <option value="furniture">Furniture</option>
+              <option value="appliances">Appliances</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="product-price">Price</label>
+            <input type="number" id="product-price" placeholder="0.00" step="0.01" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="product-stock">Stock</label>
+            <input type="number" id="product-stock" placeholder="0" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="product-desc">Description</label>
+            <textarea id="product-desc" rows="3" placeholder="Product description..."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="cancel-add-record">Cancel</button>
+        <button class="btn btn-primary" id="confirm-add-record">Add Record</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Record Modal -->
+  <div class="modal-backdrop" id="edit-record-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Record</h3>
+        <button class="close-modal" id="close-edit-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-record-form">
+          <div class="form-group">
+            <label for="edit-product-name">Product Name</label>
+            <input type="text" id="edit-product-name" value="Wireless Headphones" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-product-category">Category</label>
+            <select id="edit-product-category">
+              <option value="electronics" selected>Electronics</option>
+              <option value="clothing">Clothing</option>
+              <option value="furniture">Furniture</option>
+              <option value="appliances">Appliances</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-product-price">Price</label>
+            <input type="number" id="edit-product-price" value="199.99" step="0.01" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-product-stock">Stock</label>
+            <input type="number" id="edit-product-stock" value="56" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-product-desc">Description</label>
+            <textarea id="edit-product-desc" rows="3">High-quality wireless headphones with noise cancellation.</textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="cancel-edit-record">Cancel</button>
+        <button class="btn btn-primary" id="save-record">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Record Modal -->
+  <div class="modal-backdrop" id="view-record-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">View Product Details</h3>
+        <button class="close-modal" id="close-view-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>ID</label>
+          <p>2</p>
+        </div>
+        <div class="form-group">
+          <label>Product Name</label>
+          <p>Wireless Headphones</p>
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <p>Electronics</p>
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <p>$199.99</p>
+        </div>
+        <div class="form-group">
+          <label>Stock</label>
+          <p>56</p>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <p>High-quality wireless headphones with noise cancellation.</p>
+        </div>
+        <div class="form-group">
+          <label>Created At</label>
+          <p>2025-03-12 09:45:23</p>
+        </div>
+        <div class="form-group">
+          <label>Last Updated</label>
+          <p>2025-04-01 14:22:10</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="close-view-details">Close</button>
+        <button class="btn btn-primary" id="edit-from-view">Edit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-backdrop" id="delete-confirm-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Confirm Delete</h3>
+        <button class="close-modal" id="close-delete-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this record? This action cannot be undone.</p>
+        <div class="form-group" style="margin-top: 15px;">
+          <label>Product Name:</label>
+          <p><strong>Wireless Headphones</strong></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="cancel-delete">Cancel</button>
+        <button class="btn btn-danger" id="confirm-delete">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Table Modal -->
+  <div class="modal-backdrop" id="create-table-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Create New Table</h3>
+        <button class="close-modal" id="close-table-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="create-table-form">
+          <div class="form-group">
+            <label for="table-name">Table Name</label>
+            <input type="text" id="table-name" placeholder="Enter table name" required>
+          </div>
+          <div class="form-group">
+            <label>Columns</label>
+            <div id="columns-container">
+              <div class="column-item" style="border: 1px solid #eee; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                  <input type="text" placeholder="Column name" style="flex: 1;" value="id">
+                  <select style="width: 120px;">
+                    <option value="int" selected>INT</option>
+                    <option value="varchar">VARCHAR</option>
+                    <option value="text">TEXT</option>
+                    <option value="date">DATE</option>
+                    <option value="decimal">DECIMAL</option>
+                    <option value="boolean">BOOLEAN</option>
+                  </select>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                  <label style="display: flex; align-items: center; margin-right: 10px;">
+                    <input type="checkbox" checked> Primary Key
+                  </label>
+                  <label style="display: flex; align-items: center; margin-right: 10px;">
+                    <input type="checkbox" checked> Auto Increment
+                  </label>
+                  <label style="display: flex; align-items: center;">
+                    <input type="checkbox"> Not Null
+                  </label>
+                </div>
+              </div>
+              <div class="column-item" style="border: 1px solid #eee; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                  <input type="text" placeholder="Column name" style="flex: 1;" value="name">
+                  <select style="width: 120px;">
+                    <option value="int">INT</option>
+                    <option value="varchar" selected>VARCHAR</option>
+                    <option value="text">TEXT</option>
+                    <option value="date">DATE</option>
+                    <option value="decimal">DECIMAL</option>
+                    <option value="boolean">BOOLEAN</option>
+                  </select>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                  <label style="display: flex; align-items: center; margin-right: 10px;">
+                    <input type="checkbox"> Primary Key
+                  </label>
+                  <label style="display: flex; align-items: center; margin-right: 10px;">
+                    <input type="checkbox"> Auto Increment
+                  </label>
+                  <label style="display: flex; align-items: center;">
+                    <input type="checkbox" checked> Not Null
+                  </label>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-outline" style="width: 100%; margin-top: 10px;" id="add-column-btn">
+              <i class="fas fa-plus"></i> Add Column
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="cancel-create-table">Cancel</button>
+        <button class="btn btn-primary" id="confirm-create-table">Create Table</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+

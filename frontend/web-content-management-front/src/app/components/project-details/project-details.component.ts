@@ -2,16 +2,18 @@ import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../services/project-service.service';
 import { Project } from '../../models/Project.interface';
-import { NgForOf } from '@angular/common';
+import { NgForOf} from '@angular/common';
 import { AddNewCardComponent } from '../cards/add-new-card/add-new-card.component';
 import {WebsiteService} from '../../services/website-service.service';
-import {ProjectWebsiteCardComponent} from '../cards/project-website-card/project-website-card.component';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {ConfirmDialogComponent} from '../../shared/confirm-dialog/confirm-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {CreateWebsiteModalComponent} from '../modals/create-website-modal/create-website-modal.component';
-import {CreateProjectModalComponent} from '../modals/create-project-modal/create-project-modal.component'; // Import ajouté
+
+
+import {WebsiteCardComponent} from '../cards/website-card/website-card.component';
+
 
 @Component({
   selector: 'app-project-details',
@@ -21,8 +23,11 @@ import {CreateProjectModalComponent} from '../modals/create-project-modal/create
   imports: [
     NgForOf,
     AddNewCardComponent,
-    ProjectWebsiteCardComponent,
     CreateWebsiteModalComponent,
+    WebsiteCardComponent,
+
+
+
   ]
 })
 export class ProjectDetailsComponent implements OnInit {

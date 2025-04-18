@@ -1,71 +1,68 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import {catchError, Observable, tap } from 'rxjs';
+import {Router} from '@angular/router';
+import {LoginCredentials} from '../models/LoginCredentials.interface';
+import {AuthResponse} from '../models/AuthenResponse.interface';
+import {User} from '../models/User.interface';
+import {environment} from '../../environment/environment';
 
-export interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-export interface AuthResponse {
-  accessToken: string;
-  user: {
-    id: string;
-    email: string;
-    name?: string;
-  };
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
-  isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  private readonly apiUrl = `${environment.apiUrl}/auth`; // Adjust to your backend URL
 
-  // Replace with your actual API URL
-  private readonly apiUrl = 'https://your-backend-api.com/auth';
-
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient, private readonly router: Router) {}
 
   login(credentials: LoginCredentials): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials)
-      .pipe(
-        tap(response => {
-          localStorage.setItem('token', response.accessToken);
-          localStorage.setItem('user', JSON.stringify(response.user));
-          this.isAuthenticatedSubject.next(true); // Pass true to indicate authentication
-        })
-      );
+    return this.http.post<AuthResponse>(
+      `${this.apiUrl}/login`,
+      credentials
+    ).pipe(
+      catchError(error => {
+        console.error('Full error:', error);
+        if (error.status === 0) {
+          throw new Error('Backend server is not responding. Is it running?');
+        }
+        throw error; // Re-throw other errors
+      })
+    );
+  }
+  register(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userData);
   }
 
   loginWithGoogle(): Observable<AuthResponse> {
-    // This would typically redirect to Google OAuth
-    // For this example, we'll just simulate a call to a backend endpoint
-    return this.http.get<AuthResponse>(`${this.apiUrl}/google-login`)
-      .pipe(
-        tap(response => {
-          localStorage.setItem('token', response.accessToken);
-          localStorage.setItem('user', JSON.stringify(response.user));
-          this.isAuthenticatedSubject.next(true); // Pass true to indicate authentication
-        })
-      );
+    return this.http.get<AuthResponse>(`${this.apiUrl}/google`).pipe(
+      tap(response => {
+        this.storeAuthData(response);
+      })
+    );
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.isAuthenticatedSubject.next(false); // Pass false to indicate logout
+  private storeAuthData(response: AuthResponse): void {
+    localStorage.setItem('auth_token', response.token);
+    localStorage.setItem('current_user', JSON.stringify(response.user));
+  }
+
+  getCurrentUser(): User | null {
+    const user = localStorage.getItem('current_user');
+    return user ? JSON.parse(user) : null;
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('auth_token');
   }
 
-  private hasToken(): boolean {
-    return !!localStorage.getItem('token');
+  isLoggedIn(): boolean {
+    return !!this.getToken();
   }
-}
 
-export class AuthServiceService {
+  logout(): void {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('current_user');
+    this.router.navigate(['/login']);
+  }
 }

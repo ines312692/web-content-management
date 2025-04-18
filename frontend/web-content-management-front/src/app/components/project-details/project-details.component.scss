@@ -43,3 +43,16 @@
 .action-button fa-icon {
   margin-right: 8px;
 }
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 20px;
+}
+
+app-project-website-card,
+app-add-new-card {
+  flex: 0 0 auto;
+  width: 250px; /* Adjust as needed */
+}

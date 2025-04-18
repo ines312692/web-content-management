@@ -4,17 +4,17 @@
   <div class="main-content">
     <div class="dashboard-header">
       <div class="dashboard-title">
-        <h1>Pages du site</h1>
+        <h1>Website Pages</h1>
       </div>
       <div class="dashboard-actions">
         <button (click)="openAddPageModal()" class="action-button">
-          <fa-icon [icon]="faPlus"></fa-icon> Ajouter une page
+          <fa-icon [icon]="faPlus"></fa-icon> Add Page
         </button>
       </div>
     </div>
 
     <div class="section-content">
-      <h2 class="section-title">Liste des pages</h2>
+      <h2 class="section-title">Page List</h2>
       <div class="card-container">
         <app-page-card
           *ngFor="let page of pages"

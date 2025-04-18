@@ -1,4 +1,4 @@
-import {Component, ViewChild, inject, OnInit} from '@angular/core';
+import {Component, ViewChild, inject, OnInit, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +10,7 @@ import { AddNewCardComponent } from '../cards/add-new-card/add-new-card.componen
 import { CreateWebsiteModalComponent } from '../modals/create-website-modal/create-website-modal.component';
 import { EditProfileModalComponent } from '../modals/edit-profile-modal/edit-profile-modal.component';
 
-import { Observable } from 'rxjs';
+import {BehaviorSubject, forkJoin, Observable} from 'rxjs';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { DashboardService } from '../../services/dashboard-service.service';
 import { WebsiteService } from '../../services/website-service.service';
@@ -32,6 +32,7 @@ import {UserService} from '../../services/user.service';
 import {UserCardComponent} from '../cards/user-card/user-card.component';
 import {User} from '../../models/User.interface';
 import {CreateUserModalComponent} from '../modals/create-user-modal/create-user-modal.component';
+import {Project} from '../../models/Project.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -63,6 +64,7 @@ export class DashboardComponent implements OnInit{
   private readonly dashboardService = inject(DashboardService);
   private readonly websiteService = inject(WebsiteService);
   private readonly databaseService = inject(DatabaseService);
+
   private readonly snackBar = inject(MatSnackBar);
   private readonly projectService=inject(ProjectService);
   private readonly route = inject(ActivatedRoute);
@@ -79,20 +81,58 @@ export class DashboardComponent implements OnInit{
 
 
   websites$: Observable<Website[]> = this.websiteService.getWebsites();
-  databases$: Observable<Database[]> = this.databaseService.getAllDatabases();
-  projects$: Observable<any[]> = this.projectService.getProjects();
+
+
   users$: Observable<User[]> | undefined;
 
 
-  constructor(private readonly dialog: MatDialog) {
+
+  constructor(private readonly dialog: MatDialog,private readonly cdr: ChangeDetectorRef) {
     this.users$ = new Observable<User[]>();
   }
+
+
+  projects$: Observable<Project[]> = new BehaviorSubject<Project[]>([]);
+  databases$: Observable<Database[]> = new BehaviorSubject<Database[]>([]);
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const userId = params.get('id');
       if (userId) {
         this.checkIfResponsible(userId);
         this.users$ = this.userService.getUsersByResponsibleId(userId);
+
+        // Récupération des projets
+        this.userService.getProjectsByUser(userId).subscribe((projectIds: string[]) => {
+          if (projectIds.length > 0) {
+            const projectRequests = projectIds.map((id) => this.projectService.getProjectById(id));
+            forkJoin(projectRequests).subscribe((projects) => {
+              (this.projects$ as BehaviorSubject<Project[]>).next(projects); // Mise à jour des projets
+              this.cdr.detectChanges(); // Forcer la détection des changements
+              console.log('Projects:', projects);
+            });
+          } else {
+            console.log('Aucun projet trouvé pour cet utilisateur.');
+            (this.projects$ as BehaviorSubject<Project[]>).next([]);
+            this.cdr.detectChanges(); // Forcer la détection des changements
+          }
+        });
+
+        // Récupération des bases de données
+        this.userService.getDatabasesByUser(userId).subscribe((databaseIds: string[]) => {
+          if (databaseIds.length > 0) {
+            const databaseRequests = databaseIds.map((id) => this.databaseService.getDatabaseById(id));
+            forkJoin(databaseRequests).subscribe((databases) => {
+              (this.databases$ as BehaviorSubject<Database[]>).next(databases); // Mise à jour des bases de données
+              this.cdr.detectChanges(); // Forcer la détection des changements
+              console.log('Databases:', databases);
+            });
+          } else {
+            console.log('Aucune base de données trouvée pour cet utilisateur.');
+            (this.databases$ as BehaviorSubject<Database[]>).next([]);
+            this.cdr.detectChanges(); // Forcer la détection des changements
+          }
+        });
       }
     });
   }
@@ -217,24 +257,56 @@ export class DashboardComponent implements OnInit{
   }
 
   onProjectCreate(projectData: any) {
-    this.projectService.createProject(projectData).subscribe({
-      next: () => {
-        this.snackBar.open('Projet créé avec succès !', 'Fermer', {
+    this.route.paramMap.subscribe((params) => {
+      const userId = params.get('id');
+      if (!userId) {
+        console.error('ID utilisateur introuvable.');
+        this.snackBar.open('Impossible de créer le projet : ID utilisateur manquant.', 'Fermer', {
           duration: 3000,
-          panelClass: ['success-snackbar']
+          panelClass: ['error-snackbar'],
         });
-        this.projects$ = this.projectService.getProjects();
-      },
-      error: (err) => {
-        console.error('Erreur lors de la création du projet :', err);
-        this.snackBar.open('Échec de la création du projet.', 'Fermer', {
-          duration: 3000,
-          panelClass: ['error-snackbar']
-        });
+        return;
       }
+
+      this.projectService.createProject(projectData).subscribe({
+        next: (createdProject) => {
+          console.log('Projet créé :', createdProject);
+          this.userService.addProjectToUser(userId, createdProject.id).subscribe({
+            next: () => {
+              console.log('Projet assigné à l\'utilisateur avec succès.');
+              this.snackBar.open('Projet créé et assigné avec succès !', 'Fermer', {
+                duration: 3000,
+                panelClass: ['success-snackbar'],
+              });
+
+              // Mettre à jour la liste des projets de l'utilisateur
+              this.userService.getProjectsByUser(userId).subscribe((projectIds) => {
+                console.log('Liste mise à jour des projets de l\'utilisateur :', projectIds);
+                (this.projects$ as BehaviorSubject<Project[]>).next(
+                  projectIds.map((id) => ({ id } as Project)) // Exemple de conversion si nécessaire
+                );
+                this.cdr.detectChanges(); // Forcer la détection des changements
+              });
+            },
+            error: (err) => {
+              console.error('Erreur lors de l\'assignation du projet à l\'utilisateur :', err);
+              this.snackBar.open('Projet créé, mais échec de l\'assignation.', 'Fermer', {
+                duration: 3000,
+                panelClass: ['error-snackbar'],
+              });
+            },
+          });
+        },
+        error: (err) => {
+          console.error('Erreur lors de la création du projet :', err);
+          this.snackBar.open('Échec de la création du projet.', 'Fermer', {
+            duration: 3000,
+            panelClass: ['error-snackbar'],
+          });
+        },
+      });
     });
   }
-
   onProjectDelete(projectId: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',

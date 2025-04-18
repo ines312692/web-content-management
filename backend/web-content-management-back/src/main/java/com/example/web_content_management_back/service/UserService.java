@@ -12,4 +12,8 @@ public interface UserService {
     void deleteUser(String id);
     boolean isResponsible(String userId);
     List<UserDTO> getUsersByResponsibleId(String responsibleId);
+    List<String> getUserProjects(String userId);
+    void addProjectToUser(String userId, String projectId);
+    List<String> getUserDatabases(String userId);;
+    void addDatabaseToUser(String userId, String databaseId);
 }

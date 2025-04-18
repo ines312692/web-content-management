@@ -1,84 +1,49 @@
-.add-table-form {
-  width: 100%;
+/* Add Table Form */
+form.p-4.bg-light.rounded.shadow-sm {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 25px;
 }
 
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
+.form-label {
+  font-size: 14px;
   font-weight: 500;
-  color: #444;
+  color: #2c3e50;
+  margin-bottom: 8px;
 }
 
-.input-group {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.input-group i {
-  position: absolute;
-  left: 12px;
-  color: #777;
-}
-
-.input-group input {
+.form-control {
   width: 100%;
-  padding: 12px 12px 12px 40px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  padding: 10px;
+  border: 1px solid #dfe6e9;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
 }
 
-.input-group input:focus {
+.form-control:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
-}
-
-.input-group input.is-invalid {
-  border-color: #dc3545;
-}
-
-.error-message {
-  color: #dc3545;
-  font-size: 0.85rem;
-  margin-top: 5px;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.btn {
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: all 0.2s ease;
-}
-
-.btn i {
-  margin-right: 8px;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
 .btn-primary {
-  background: #007bff;
-  color: white;
+  background: #3498db;
+  color: #fff;
   border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .btn-primary:hover {
-  background: #0056b3;
+  background: #2980b9;
+  transform: translateY(-2px);
 }
 
 .btn-outline {
@@ -89,4 +54,9 @@
 
 .btn-outline:hover {
   background: #f0f8ff;
+/* Responsive Design for add-table */
+@media (max-width: 480px) {
+  form.p-4.bg-light.rounded.shadow-sm {
+    padding: 15px;
+  }
 }

@@ -11,7 +11,8 @@ import {User} from '../models/User.interface';
 export class UserService {
   private readonly baseUrl = 'http://localhost:8081/users';
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
+  }
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl);
@@ -32,10 +33,28 @@ export class UserService {
   deleteUser(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+
   isResponsible(userId: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.baseUrl}/${userId}/is-responsible`);
   }
+
   getUsersByResponsibleId(responsibleId: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/responsible/${responsibleId}`);
+  }
+
+  getProjectsByUser(userId: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/${userId}/projects`, {
+      headers: {'Accept': 'application/json'},
+    });
+  }
+
+  addProjectToUser(userId: string, projectId: string): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/${userId}/projects/${projectId}`, {});
+  }
+
+  getDatabasesByUser(userId: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/${userId}/databases`, {
+      headers: {'Accept': 'application/json'},
+    });
   }
 }
