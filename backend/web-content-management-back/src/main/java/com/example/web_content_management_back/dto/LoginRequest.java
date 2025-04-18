@@ -1,0 +1,10 @@
+// src/main/java/com/example/web_content_management_back/dto/LoginRequest.java
+package com.example.web_content_management_back.dto;
+
+import lombok.Data;
+
+@Data
+public class LoginRequest {
+    private String email;
+    private String password;
+}

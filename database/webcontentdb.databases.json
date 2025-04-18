@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "67fac5bfe943c104f8735155"
+  },
+  "name": "test_database",
+  "type": "mysql",
+  "connectionString": "jdbc:mysql://localhost:3306/test_database",
+  "description": "Base de données de test",
+  "username": "root",
+  "password": "password",
+  "_class": "com.example.web_content_management_back.model.Database"
+},
+{
+  "_id": {
+    "$oid": "67fb81518679f64ed14066c3"
+  },
+  "name": "test_database",
+  "type": "mysql",
+  "connectionString": "jdbc:mysql://localhost:3306/test_database",
+  "description": "Base de données de test",
+  "username": "root",
+  "password": "password",
+  "_class": "com.example.web_content_management_back.model.Database"
+}]

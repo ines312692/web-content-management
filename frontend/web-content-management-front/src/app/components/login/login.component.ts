@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth.service.service';
+import { AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -27,11 +27,13 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) {
+      console.log('Form invalid'); // Add this
       return;
     }
 
     this.isLoading = true;
     this.loginError = '';
+    console.log('Sending login request...', this.loginForm.value); // Add this
 
     const credentials = {
       email: this.loginForm.value.email || '',
@@ -39,11 +41,16 @@ export class LoginComponent {
     };
 
     this.authService.login(credentials).subscribe({
-      next: () => {
+      next: (response) => {
+        console.log('Login successful'); // Add this
+        localStorage.setItem('auth_token', response.token);
+        localStorage.setItem('current_user', JSON.stringify(response.user));
         this.isLoading = false;
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {
+        console.error('Login error:', error);
+         // Add this
         this.isLoading = false;
         this.loginError = error.error?.message || 'Login failed. Please try again.';
       }

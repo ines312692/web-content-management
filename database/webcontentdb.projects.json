@@ -1,0 +1,39 @@
+[{
+  "_id": "",
+  "name": "new project",
+  "description": "this is our PFA project",
+  "websites": [],
+  "_class": "com.example.web_content_management_back.model.Project"
+},
+{
+  "_id": {
+    "$oid": "67fd005e15788a618c6b96b9"
+  },
+  "name": "hello",
+  "description": "friend",
+  "websites": [
+    {
+      "$ref": "websites",
+      "$id": "20138672-402d-4acf-a8b7-7b99911028c1"
+    },
+    {
+      "$ref": "websites",
+      "$id": "8e8c9ae8-6bd7-4c4f-b142-5c78a4b15151"
+    }
+  ],
+  "_class": "com.example.web_content_management_back.model.Project"
+},
+{
+  "_id": {
+    "$oid": "67fd700893365445dff7cb34"
+  },
+  "name": "hi",
+  "description": "friend",
+  "websites": [
+    {
+      "$ref": "websites",
+      "$id": "3585b485-84dc-4f88-8f67-4e65122a1104"
+    }
+  ],
+  "_class": "com.example.web_content_management_back.model.Project"
+}]

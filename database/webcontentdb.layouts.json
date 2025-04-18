@@ -1,6 +1,6 @@
 [{
   "_id": {
-    "$oid": "67e90c5e94198a2165d8eeb2"
+    "$oid": "67ec1d02649d342fd39b5b8a"
   },
   "borderColor": "",
   "backgroundColor": "",
@@ -14,26 +14,12 @@
   "nodes": [
     {
       "$ref": "nodes",
-      "$id": "yjs941k3k"
+      "$id": "9vxgko3tq"
     },
     {
       "$ref": "nodes",
-      "$id": "0pjwnjopj"
+      "$id": "9esr4znac"
     }
   ],
-  "_class": "com.example.web_content_management_back.model.Layout"
-},
-{
-  "_id": {
-    "$oid": "67ec1d02649d342fd39b5b8a"
-  },
-  "borderColor": "#000000",
-  "backgroundColor": "#FFFFFF",
-  "height": "auto",
-  "width": "auto",
-  "name": "Image",
-  "description": "Description for Image",
-  "type": "image",
-  "nodes": [],
   "_class": "com.example.web_content_management_back.model.Layout"
 }]

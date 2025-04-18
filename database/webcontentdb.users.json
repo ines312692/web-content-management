@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "67ffbef02d204d12d24eae50"
+  },
+  "name": "ines",
+  "email": "inestm@gmail.com",
+  "role": "user",
+  "password": "hello",
+  "_class": "com.example.web_content_management_back.model.User"
+},
+{
+  "_id": {
+    "$oid": "67ffbfae2d204d12d24eae51"
+  },
+  "name": "inest",
+  "email": "inestmimi148@gmail.com",
+  "role": "user",
+  "password": "hiines",
+  "responsibleUser": {
+    "$ref": "users",
+    "$id": "generatedUserId"
+  },
+  "_class": "com.example.web_content_management_back.model.User"
+}]
