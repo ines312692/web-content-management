@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { NgForOf, NgIf } from '@angular/common';
 import { Table } from '../../../models/Table.interface';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
@@ -34,17 +35,17 @@ export class TableListComponent implements OnChanges {
     this.onEdit.emit(table);
   }
 
-  confirmDelete(tableName: string): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { message: `Are you sure you want to delete table "${tableName}"?` }
-    });
+  // confirmDelete(tableName: string): void {
+  //   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+  //     data: { message: `Are you sure you want to delete table "${tableName}"?` }
+  //   });
 
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        this.deleteTable(tableName);
-      }
-    });
-  }
+  //   dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+  //     if (confirmed) {
+  //       this.deleteTable(tableName);
+  //     }
+  //   });
+  // }
 
   deleteTable(tableName: string): void {
     this.onDelete.emit(tableName);

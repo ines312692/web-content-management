@@ -33,7 +33,7 @@ bootstrapApplication(AppComponent, {
   ...appConfig,
   providers: [
     importProvidersFrom(HttpClientModule),
-    provideRouter(routes, withDebugTracing(), withRouterConfig({ paramsInheritanceStrategy: 'always' }))
+    provideRouter(appRoutes, withDebugTracing(), withRouterConfig({ paramsInheritanceStrategy: 'always' }))
   ]
 })
 .catch((err) => console.error(err));
