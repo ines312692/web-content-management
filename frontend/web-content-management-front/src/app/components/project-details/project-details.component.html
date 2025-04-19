@@ -1,19 +1,25 @@
+<div class="dashboard-container">
+  <app-sidebar></app-sidebar>
+<div class="main-content" style="margin-left: 250px">
+  <h2 class="section-title">My Websites</h2>
+  <div class="card-container">
+    <app-website-card
+      *ngFor="let website of websites"
+      [website]="website"
+      (delete)="onWebsiteDelete($event)"
+      (edit)="openEditWebsiteModal($event)">
+    </app-website-card>
+    <app-add-new-card
+      text="Add New Website"
+      (add)="openCreateWebsiteModal()">
+    </app-add-new-card>
+  </div>
 
-<h2 class="section-title">My Websites</h2>
-<div class="card-container">
-  <app-website-card
-    *ngFor="let website of websites"
-    [website]="website"
-    (delete)="onWebsiteDelete($event)"
-    (edit)="openEditWebsiteModal($event)">
-  </app-website-card>
-  <app-add-new-card
-    text="Add New Website"
-    (add)="openCreateWebsiteModal()">
-  </app-add-new-card>
+  <app-create-website-modal #createWebsiteModal
+                            (close)="onCreateWebsiteModalClose()"
+                            (create)="onWebsiteCreate($event)">
+  </app-create-website-modal>
+</div>
 </div>
 
-<app-create-website-modal #createWebsiteModal
-                          (close)="onCreateWebsiteModalClose()"
-                          (create)="onWebsiteCreate($event)">
-</app-create-website-modal>
+

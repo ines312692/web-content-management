@@ -8,7 +8,7 @@
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  margin-left: 250px;
+  margin-left: 250px !important;
 }
 
 .dashboard-header {
@@ -54,5 +54,5 @@
 app-project-website-card,
 app-add-new-card {
   flex: 0 0 auto;
-  width: 250px; /* Adjust as needed */
+  width: 250px; 
 }

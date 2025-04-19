@@ -10,6 +10,7 @@ import {ConfirmDialogComponent} from '../../shared/confirm-dialog/confirm-dialog
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {CreateWebsiteModalComponent} from '../modals/create-website-modal/create-website-modal.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 
 import {WebsiteCardComponent} from '../cards/website-card/website-card.component';
@@ -25,7 +26,7 @@ import {WebsiteCardComponent} from '../cards/website-card/website-card.component
     AddNewCardComponent,
     CreateWebsiteModalComponent,
     WebsiteCardComponent,
-
+    SidebarComponent
 
 
   ]

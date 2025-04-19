@@ -3,45 +3,14 @@
     <h2>WebBuilder</h2>
   </div>
   <div class="sidebar-menu">
-    <button
+    <button 
+      *ngFor="let item of menuItems"
       class="menu-item"
-      [class.active]="activeMenuItem === 'dashboard'"
-      (click)="setActiveMenuItem('dashboard')"
+      [class.active]="activeMenuItem === item.id"
+      (click)="navigateTo(item)"
     >
-      <fa-icon [icon]="faHome"></fa-icon>
-      <span>Dashboard</span>
-    </button>
-    <button
-      class="menu-item"
-      [class.active]="activeMenuItem === 'websites'"
-      (click)="setActiveMenuItem('websites')"
-    >
-      <fa-icon [icon]="faGlobe"></fa-icon>
-      <span>My Websites</span>
-    </button>
-    <button
-      class="menu-item"
-      [class.active]="activeMenuItem === 'databases'"
-      (click)="setActiveMenuItem('databases')"
-    >
-      <fa-icon [icon]="faDatabase"></fa-icon>
-      <span>My Databases</span>
-    </button>
-    <button
-      class="menu-item"
-      [class.active]="activeMenuItem === 'components'"
-      (click)="setActiveMenuItem('components')"
-    >
-      <fa-icon [icon]="faFolder"></fa-icon>
-      <span>Components</span>
-    </button>
-    <button
-      class="menu-item"
-      [class.active]="activeMenuItem === 'settings'"
-      (click)="setActiveMenuItem('settings')"
-    >
-      <fa-icon [icon]="faCog"></fa-icon>
-      <span>Settings</span>
+      <fa-icon [icon]="item.icon"></fa-icon>
+      <span>{{ item.label }}</span>
     </button>
     <button class="menu-item" (click)="onLogout()">
       <fa-icon [icon]="faSignOutAlt"></fa-icon>
@@ -56,6 +25,5 @@
       <div class="user-name">{{ userName }}</div>
       <div class="user-role">{{ userRole }}</div>
     </div>
-
   </div>
 </div>

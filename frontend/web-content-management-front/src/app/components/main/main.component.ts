@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import {Observable, Subject, BehaviorSubject, throwError, catchError, tap} from 'rxjs';
@@ -27,11 +27,24 @@ export class MainComponent implements OnInit, OnDestroy {
   private selectedList: INode[] | undefined = undefined;
   private lastSelectedNode: INode | null = null;
 
+  // History tracking for undo/redo functionality
+  private historyStack: INode[] = [];
+  private historyPosition = -1;
+  private maxHistorySize = 30; // Limit the history size to prevent memory issues
+
   selectedNode$ = this._selectedNode.asObservable();
   layout$ = this._layoutSubject.asObservable().pipe(filter(layout => layout !== null));
   isLastSelectedNodeRoot = false;
+  
+  // Flags to disable undo/redo buttons when appropriate
+  canUndo = false;
+  canRedo = false;
 
-  root: INode = {
+  // Create a BehaviorSubject to trigger updates when root changes
+  private _rootSubject = new BehaviorSubject<INode | null>(null);
+  
+  // Expose the root as a property with a getter/setter to ensure UI updates
+  private _root: INode = {
     id: '',
     name: "Layout",
     type: "row",
@@ -39,11 +52,21 @@ export class MainComponent implements OnInit, OnDestroy {
     children: [],
     template: false,
   };
+  
+  get root(): INode {
+    return this._root;
+  }
+  
+  set root(value: INode) {
+    this._root = value;
+    this._rootSubject.next(value);
+  }
 
   constructor(
     private readonly layoutService: LayoutService,
     private readonly route: ActivatedRoute,
     private readonly nodeService: NodeService,
+    private readonly changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +75,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._selectedNode.complete();
+    this._rootSubject.complete();
   }
 
   private initializeLayout(): void {
@@ -65,6 +89,9 @@ export class MainComponent implements OnInit, OnDestroy {
         tap(layout => {
           this.root = layout?.nodes?.[0] || this.createDefaultLayout(id);
           this._layoutSubject.next(layout);
+          
+          // Add initial state to history
+          this.addToHistory(this.deepClone(this.root));
         }),
         catchError(error => {
           console.error(error);
@@ -72,8 +99,82 @@ export class MainComponent implements OnInit, OnDestroy {
         })
       ).subscribe();
     } else {
-      console.error();
+      console.error('No layout ID provided');
     }
+  }
+
+  // Deep clone helper to ensure immutability in history tracking
+  private deepClone<T>(obj: T): T {
+    return JSON.parse(JSON.stringify(obj));
+  }
+
+  // Add current state to history
+  private addToHistory(state: INode): void {
+    // If we've undone some changes and then make a new change,
+    // discard the "future" states
+    if (this.historyPosition < this.historyStack.length - 1) {
+      this.historyStack = this.historyStack.slice(0, this.historyPosition + 1);
+    }
+    
+    // Add new state to history
+    this.historyStack.push(state);
+    
+    // Maintain maximum history size
+    if (this.historyStack.length > this.maxHistorySize) {
+      this.historyStack.shift();
+    } else {
+      this.historyPosition++;
+    }
+    
+    // Update button states
+    this.updateHistoryButtonStates();
+  }
+
+  // Update the undo/redo button states
+  private updateHistoryButtonStates(): void {
+    this.canUndo = this.historyPosition > 0;
+    this.canRedo = this.historyPosition < this.historyStack.length - 1;
+    // Force change detection to update the UI
+    this.changeDetector.detectChanges();
+  }
+
+  // Undo the last change
+  undo(): void {
+    if (!this.canUndo) return;
+    
+    this.historyPosition--;
+    // Create a new object reference to ensure Angular detects the change
+    this.root = this.deepClone(this.historyStack[this.historyPosition]);
+    this.clearSelection();
+    this.updateHistoryButtonStates();
+    
+    // Update the layout in the backend
+    this.updateLayout(false);
+    
+    // Force change detection
+    this.changeDetector.detectChanges();
+  }
+
+  // Redo a previously undone change
+  redo(): void {
+    if (!this.canRedo) return;
+    
+    this.historyPosition++;
+    // Create a new object reference to ensure Angular detects the change
+    this.root = this.deepClone(this.historyStack[this.historyPosition]);
+    this.clearSelection();
+    this.updateHistoryButtonStates();
+    
+    // Update the layout in the backend
+    this.updateLayout(false);
+    
+    // Force change detection
+    this.changeDetector.detectChanges();
+  }
+
+  // Public method to save current layout that can be called from the template
+  saveCurrentLayout(): void {
+    this.updateLayout(true);
   }
 
   private createDefaultLayout(id: string): INode {
@@ -100,6 +201,9 @@ export class MainComponent implements OnInit, OnDestroy {
 
   onDrop(payload: { event: DndDropEvent, list?: INode[] }): void {
     if (payload.list && (payload.event.dropEffect === 'copy' || payload.event.dropEffect === 'move')) {
+      // Save current state before modification
+      const previousState = this.deepClone(this.root);
+      
       const index = payload.event.index ?? payload.list.length;
       const newNode = { ...payload.event.data, id: this.generateUniqueId(), template: false };
       const parentNode = payload.list.find(node => node.id === payload.event.data.parent?.id);
@@ -114,6 +218,12 @@ export class MainComponent implements OnInit, OnDestroy {
       this.clearSelection();
       this.onNodeSelected({ node: newNode, isRoot: false, list: payload.list });
       this.updateLayout();
+      
+      // Add new state to history
+      this.addToHistory(this.deepClone(this.root));
+      
+      // Force change detection
+      this.changeDetector.detectChanges();
     }
   }
 
@@ -127,7 +237,7 @@ export class MainComponent implements OnInit, OnDestroy {
     ).subscribe();
   }
 
-  private updateLayout(): void {
+  private updateLayout(addToHistory: boolean = true): void {
     const updatedLayout: ILayout = {
       id: this.root.id,
       name: this.root.name,
@@ -144,12 +254,21 @@ export class MainComponent implements OnInit, OnDestroy {
 
     this.updateNodes(updatedLayout.nodes);
     this.layoutService.updateLayout(updatedLayout.id, updatedLayout).pipe(
-      tap(response => console.log('Layout mis à jour avec succès', response)),
+      tap(response => {
+        console.log('Layout mis à jour avec succès', response);
+        // Update the layout subject to notify components
+        this._layoutSubject.next(updatedLayout);
+      }),
       catchError(error => {
         console.error(error);
         return throwError(() => error);
       })
     ).subscribe();
+    
+    // Add to history if needed
+    if (addToHistory) {
+      this.addToHistory(this.deepClone(this.root));
+    }
   }
 
   private updateNodes(nodes: INode[]): void {
@@ -187,6 +306,9 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   onRemove(payload: { node: INode, list: INode[] }): void {
+    // Save current state before modification
+    const previousState = this.deepClone(this.root);
+    
     const index = this.findNodeIndexInList(payload.node, payload.list);
     if (index >= 0) {
       this.nodeService.deleteNode(payload.node.id).pipe(
@@ -195,6 +317,12 @@ export class MainComponent implements OnInit, OnDestroy {
           payload.list.splice(index, 1);
           this.clearSelection();
           this.updateLayout();
+          
+          // Add new state to history
+          this.addToHistory(this.deepClone(this.root));
+          
+          // Force change detection
+          this.changeDetector.detectChanges();
         }),
         catchError(error => {
           console.error(error);
@@ -211,9 +339,15 @@ export class MainComponent implements OnInit, OnDestroy {
     this._selectedNode.next(payload.node);
     this.isLastSelectedNodeRoot = payload.isRoot;
     this.selectedList = payload.list;
+    
+    // Force change detection
+    this.changeDetector.detectChanges();
   }
 
   onNodeSave(payload: { oldNode: INode, newNode: INode, isRoot: boolean }): void {
+    // Save current state before modification
+    const previousState = this.deepClone(this.root);
+    
     if (payload.isRoot) {
       this.root = payload.newNode;
     } else {
@@ -228,6 +362,12 @@ export class MainComponent implements OnInit, OnDestroy {
       tap(response => {
         console.log('Nœud mis à jour avec succès', response);
         this.updateLayout();
+        
+        // Add new state to history
+        this.addToHistory(this.deepClone(this.root));
+        
+        // Force change detection
+        this.changeDetector.detectChanges();
       }),
       catchError(error => {
         console.error(error);
@@ -235,6 +375,7 @@ export class MainComponent implements OnInit, OnDestroy {
       })
     ).subscribe();
   }
+  
   private findNodeIndexInList(node: INode, list: INode[] | undefined): number {
     return list ? list.indexOf(node) : -1;
   }
@@ -252,7 +393,40 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   onSaveLayout(newLayout: ILayout): void {
-    this.layoutService.updateLayout(newLayout.id, newLayout).subscribe();
+    // Save current state before modification
+    const previousState = this.deepClone(this.root);
+    
+    this.layoutService.updateLayout(newLayout.id, newLayout).pipe(
+      tap(() => {
+        // Add new state to history
+        this.addToHistory(this.deepClone(this.root));
+        
+        // Force change detection
+        this.changeDetector.detectChanges();
+      })
+    ).subscribe();
+  }
+
+  // Clear functionality
+  clearLayout(): void {
+    if (confirm('Are you sure you want to clear the layout? This action cannot be undone.')) {
+      // Save current state before clearing
+      const previousState = this.deepClone(this.root);
+      
+      // Create a new root object to ensure change detection
+      const newRoot = this.deepClone(this.root);
+      newRoot.children = [];
+      this.root = newRoot;
+      
+      this.clearSelection();
+      this.updateLayout();
+      
+      // Add new empty state to history
+      this.addToHistory(this.deepClone(this.root));
+      
+      // Force change detection
+      this.changeDetector.detectChanges();
+    }
   }
 
   private generateUniqueId(): string {
