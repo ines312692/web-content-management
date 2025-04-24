@@ -1,0 +1,20 @@
+
+.database-panel {
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  .card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .card {
+      padding: 10px;
+      border: 1px solid #ddd;
+      background-color: white;
+      cursor: move;
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+}

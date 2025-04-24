@@ -1,0 +1,16 @@
+<div class="database-panel">
+  <h3>Database Tables</h3>
+  <div class="card-list">
+    <div
+      *ngFor="let table of tables"
+      class="card"
+      dnd-draggable
+      [dragEnabled]="!isPreviewMode"
+      [dragData]="table"
+      (onDragStart)="onDragStart()"
+      (onDragEnd)="onDragEnd()"
+    >
+      <span>{{ table.name }}</span>
+    </div>
+  </div>
+</div>

@@ -13,13 +13,15 @@ import {ILayout} from '../../models/ILayout';
 import {LayoutService} from '../../services/layout-service.service';
 import {NodeService} from '../../services/node-service.service';
 import {NgClass} from '@angular/common';
+import {DatabaseContentComponent} from '../database-content/database-content.component';
+import {Table} from '../../models/Table.interface';
 
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   standalone: true,
-  imports: [OriginListComponent, LayoutComponent, OptionsComponent, RouterModule, NgClass],
+  imports: [OriginListComponent, LayoutComponent, OptionsComponent, RouterModule, NgClass, DatabaseContentComponent],
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, OnDestroy {
@@ -51,6 +53,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.initializeLayout();
   }
   isPreviewMode = false;
+  tables: Table[] =[];
 
   ngOnDestroy(): void {
     this._selectedNode.complete();

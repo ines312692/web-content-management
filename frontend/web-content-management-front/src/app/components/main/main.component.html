@@ -29,6 +29,18 @@
     <div class="column">
       <app-origin-list (dragStart)="onDragStart()" (dragMove)="onDragged($event)" (dragEnd)="onDragEnd()"></app-origin-list>
     </div>
+    <!-------------------->
+    <div class="column">
+      <app-database-content
+        [tables]="tables"
+        [isPreviewMode]="isPreviewMode"
+        (dragStart)="onDragStart()"
+        (dragEnd)="onDragEnd()"
+        (drop)="onDrop($event)"
+      ></app-database-content>
+    </div>
+    <!-------------------->
+
     <div class="column">
       <app-layout [root]="root" (drop)="onDrop($event)" (dragStart)="onDragStart()"
                   (dragMove)="onDragged($event)" (dragEnd)="onDragEnd()"

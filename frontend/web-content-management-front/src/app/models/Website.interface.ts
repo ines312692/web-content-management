@@ -1,4 +1,5 @@
 import {Page} from './Page.interface';
+import {Database} from './database.interface';
 
 export interface Website{
   id: string;
@@ -8,5 +9,5 @@ export interface Website{
   primaryColor: string;
   description: string;
   pages: Page[];
-  database : null;
+  database : Database|null;
 }
